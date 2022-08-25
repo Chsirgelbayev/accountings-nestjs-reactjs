@@ -1,0 +1,50 @@
+import {
+    Body,
+    Controller,
+    Get,
+    Post,
+    Request,
+    Response,
+    UseGuards
+} from '@nestjs/common';
+import { AuthJwtGuard } from './auth.guard';
+import { AuthService } from './auth.service';
+import { LoginDto } from './dto/login.dto';
+import { RegisterDto } from './dto/register.dto';
+
+@Controller('api/v1/auth')
+export class AuthController {
+    constructor(private readonly authService: AuthService) {}
+
+    @Post('login')
+    async login(@Body() loginDto: LoginDto, @Response() res): Promise<void> {
+        const tokenOptions = await this.authService.login(loginDto);
+
+        res.cookie(
+            'token',
+            tokenOptions.token,
+            tokenOptions.cookieSettings
+        ).json({ success: true, token: tokenOptions.token });
+    }
+
+    @Post('register')
+    async register(@Body() registerDto: RegisterDto, @Response() res) {
+        const tokenOptions = await this.authService.register(registerDto);
+
+        res.cookie(
+            'token',
+            tokenOptions.token,
+            tokenOptions.cookieSettings
+        ).json({ success: true, token: tokenOptions.token });
+    }
+
+    @Get('me')
+    @UseGuards(AuthJwtGuard)
+    async getMe(@Request() req): Promise<Object> {
+        
+        return {
+            success: true,
+            data: req.user
+        };
+    }
+}
