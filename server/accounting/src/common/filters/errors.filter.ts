@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { MongoServerError } from 'mongodb';
 import { Request, Response } from 'express';
-import { messages } from '../data/messages';
+import { messages } from '../constants/messages.constant';
 
 @Catch()
 export class AllErrorsFilter implements ExceptionFilter {

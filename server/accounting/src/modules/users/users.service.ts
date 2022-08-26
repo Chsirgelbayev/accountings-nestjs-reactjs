@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { messages } from 'src/common/data/messages';
+import { messages } from 'src/common/constants/messages.constant';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { IUser, User } from './users.schema';
 

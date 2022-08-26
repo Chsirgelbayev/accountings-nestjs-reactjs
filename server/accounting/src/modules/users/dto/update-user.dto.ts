@@ -7,9 +7,4 @@ export class UpdateUserDto {
     @IsString()
     @MaxLength(20)
     readonly name: string;
-
-    @ApiProperty()
-    @IsOptional()
-    @IsEmail()
-    readonly email: string;
 }

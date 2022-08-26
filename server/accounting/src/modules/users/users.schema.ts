@@ -11,9 +11,6 @@ export class User {
     @Prop({ required: true })
     name: string;
 
-    @Prop({ unique: true, required: true })
-    email: string;
-
     @Prop({ required: true, select: false })
     password: string;
 
@@ -38,7 +35,7 @@ usersSchema.pre('save', async function (next: NextFunction) {
 usersSchema.pre('remove', async function (next: NextFunction) {
     await this.$model(Accounting.name).deleteMany({ userId: this.id });
 
-    next()
+    next();
 });
 
 usersSchema.loadClass(User);

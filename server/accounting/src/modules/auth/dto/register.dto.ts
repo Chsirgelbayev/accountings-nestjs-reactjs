@@ -13,8 +13,4 @@ export class RegisterDto {
     @IsString()
     @MaxLength(20)
     readonly password: string;
-
-    @ApiProperty()
-    @IsEmail()
-    readonly email: string;
 }

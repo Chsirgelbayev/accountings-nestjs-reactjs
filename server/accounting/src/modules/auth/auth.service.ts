@@ -7,7 +7,7 @@ import { configuration } from 'src/common/config/configuration';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../users/users.schema';
-import { messages } from 'src/common/data/messages';
+import { messages } from 'src/common/constants/messages.constant';
 
 @Injectable()
 export class AuthService {
@@ -36,7 +36,6 @@ export class AuthService {
         return this.generateToken({
             id: user.id,
             name: user.name,
-            email: user.email
         });
     }
 
@@ -46,7 +45,6 @@ export class AuthService {
         return this.generateToken({
             id: user.id,
             name: user.name,
-            email: user.email
         });
     }
 

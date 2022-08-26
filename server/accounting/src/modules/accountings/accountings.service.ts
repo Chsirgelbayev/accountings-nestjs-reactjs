@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { messages } from 'src/common/data/messages';
+import { messages } from 'src/common/constants/messages.constant';
 import { Accounting, IAccounting } from './accountings.schema';
 import { CreateAccountingDto } from './dto/create-accounting.dto';
 import { UpdateAccountingDto } from './dto/update-accounting.dto';
