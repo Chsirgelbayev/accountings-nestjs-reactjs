@@ -31,7 +31,10 @@ export class AuthController {
     }
 
     @Post('register')
-    public async register(@Body() registerDto: RegisterDto, @Response() res) {
+    public async register(
+        @Body() registerDto: RegisterDto,
+        @Response() res
+    ): Promise<void> {
         const tokenOptions = await this.authService.register(registerDto);
 
         res.cookie(
