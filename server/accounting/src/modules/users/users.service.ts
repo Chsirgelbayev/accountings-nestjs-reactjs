@@ -11,7 +11,7 @@ export class UsersService {
         @InjectModel(User.name) private readonly usersSchema: Model<IUser>
     ) {}
 
-    async getAllUsers(): Promise<User[]> {
+    public async getAllUsers(): Promise<User[]> {
         const users = await this.usersSchema.find();
 
         if (!users.length) {
@@ -21,7 +21,7 @@ export class UsersService {
         return users;
     }
 
-    async getUser(id: string): Promise<User> {
+    public async getUser(id: string): Promise<User> {
         const user = await this.usersSchema.findById(id);
 
         if (!user) {
@@ -31,7 +31,10 @@ export class UsersService {
         return user;
     }
 
-    async updateUser(updateUserDto: UpdateUserDto, id: string): Promise<User> {
+    public async updateUser(
+        updateUserDto: UpdateUserDto,
+        id: string
+    ): Promise<User> {
         const user = await this.usersSchema.findByIdAndUpdate(
             id,
             updateUserDto
@@ -44,7 +47,7 @@ export class UsersService {
         return user;
     }
 
-    async deleteUser(id: string): Promise<void> {
+    public async deleteUser(id: string): Promise<void> {
         const user = await this.usersSchema.findById(id);
 
         if (!user) {

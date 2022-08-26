@@ -21,7 +21,7 @@ export class AccountingsController {
 
     @UseGuards(AuthJwtGuard)
     @Get()
-    async findAllAccountings(@Request() req): Promise<Object> {
+    public async findAllAccountings(@Request() req): Promise<Object> {
         const accountings = await this.accountingsService.findAllAccountings(
             req.user.id
         );
@@ -34,7 +34,7 @@ export class AccountingsController {
 
     @UseGuards(AuthJwtGuard)
     @Post()
-    async createAccounting(
+    public async createAccounting(
         @Body() createAccountingDto: CreateAccountingDto,
         @Request() req
     ): Promise<Object> {
@@ -53,7 +53,7 @@ export class AccountingsController {
     @UseGuards(AuthJwtGuard)
     @Put(':id')
     @HttpCode(201)
-    async updateAccounting(
+    public async updateAccounting(
         @Param('id') id: string,
         @Body() updateAccountingDto: UpdateAccountingDto
     ): Promise<Object> {
@@ -71,7 +71,7 @@ export class AccountingsController {
     @UseGuards(AuthJwtGuard)
     @Delete(':id')
     @HttpCode(204)
-    async deleteAccounting(@Param('id') id: string): Promise<void> {
+    public async deleteAccounting(@Param('id') id: string): Promise<void> {
         return await this.accountingsService.deleteAccounting(id);
     }
 }

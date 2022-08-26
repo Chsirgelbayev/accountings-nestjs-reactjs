@@ -13,7 +13,7 @@ export class AccountingsService {
         private readonly accountingsSchema: Model<IAccounting>
     ) {}
 
-    async findAllAccountings(id: string): Promise<Accounting[]> {
+    public async findAllAccountings(id: string): Promise<Accounting[]> {
         const accountings = await this.accountingsSchema.find({
             userId: id
         });
@@ -25,15 +25,15 @@ export class AccountingsService {
         return accountings;
     }
 
-    async createAccounting(
+    public async createAccounting(
         createAccountingDto: CreateAccountingDto
     ): Promise<Accounting> {
         return await this.accountingsSchema.create(createAccountingDto);
     }
 
-    async updateAccounting(
+    public async updateAccounting(
         id: string,
-        updateAccountingDto: UpdateAccountingDto,
+        updateAccountingDto: UpdateAccountingDto
     ): Promise<Accounting> {
         const accounting = await this.accountingsSchema.findByIdAndUpdate(
             id,
@@ -51,7 +51,7 @@ export class AccountingsService {
         return accounting;
     }
 
-    async deleteAccounting(id: string) {
+    public async deleteAccounting(id: string) {
         const accounting = await this.accountingsSchema.findByIdAndDelete(id);
 
         if (!accounting) {

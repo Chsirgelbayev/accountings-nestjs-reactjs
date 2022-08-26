@@ -18,7 +18,7 @@ export class UsersController {
 
     @UseGuards(AuthJwtGuard)
     @Get()
-    async getAllUsers(): Promise<Object> {
+    public async getAllUsers(): Promise<Object> {
         const users = await this.usersService.getAllUsers();
 
         return {
@@ -29,7 +29,7 @@ export class UsersController {
 
     @UseGuards(AuthJwtGuard)
     @Get(':id')
-    async getUser(@Param('id') id: string): Promise<Object> {
+    public async getUser(@Param('id') id: string): Promise<Object> {
         const user = await this.usersService.getUser(id);
 
         return {
@@ -41,7 +41,7 @@ export class UsersController {
     @UseGuards(AuthJwtGuard)
     @Put(':id')
     @HttpCode(201)
-    async updateUser(
+    public async updateUser(
         @Body() updateUserDto: UpdateUserDto,
         @Param('id') id: string
     ): Promise<Object> {
@@ -56,7 +56,7 @@ export class UsersController {
     @UseGuards(AuthJwtGuard)
     @Delete(':id')
     @HttpCode(204)
-    async deleteUser(@Param('id') id: string): Promise<void> {
+    public async deleteUser(@Param('id') id: string): Promise<void> {
         return await this.usersService.deleteUser(id);
     }
 }

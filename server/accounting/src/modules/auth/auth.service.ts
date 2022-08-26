@@ -16,7 +16,7 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) {}
 
-    async login(loginDto: LoginDto) {
+    public async login(loginDto: LoginDto) {
         const user = await this.usersSchema
             .findOne({
                 email: loginDto.email
@@ -35,20 +35,20 @@ export class AuthService {
 
         return this.generateToken({
             id: user.id,
-            name: user.name,
+            name: user.name
         });
     }
 
-    async register(registerDto: RegisterDto) {
+    public async register(registerDto: RegisterDto) {
         const user = await this.usersSchema.create(registerDto);
 
         return this.generateToken({
             id: user.id,
-            name: user.name,
+            name: user.name
         });
     }
 
-    async generateToken(user) {
+    private async generateToken(user) {
         const token: string = this.jwtService.sign(user);
 
         const cookieSettings: Record<string, Date | boolean | boolean> = {

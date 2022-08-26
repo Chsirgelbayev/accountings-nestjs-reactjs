@@ -17,7 +17,10 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     @Post('login')
-    async login(@Body() loginDto: LoginDto, @Response() res): Promise<void> {
+    public async login(
+        @Body() loginDto: LoginDto,
+        @Response() res
+    ): Promise<void> {
         const tokenOptions = await this.authService.login(loginDto);
 
         res.cookie(
@@ -28,7 +31,7 @@ export class AuthController {
     }
 
     @Post('register')
-    async register(@Body() registerDto: RegisterDto, @Response() res) {
+    public async register(@Body() registerDto: RegisterDto, @Response() res) {
         const tokenOptions = await this.authService.register(registerDto);
 
         res.cookie(
@@ -40,8 +43,7 @@ export class AuthController {
 
     @Get('me')
     @UseGuards(AuthJwtGuard)
-    async getMe(@Request() req): Promise<Object> {
-        
+    public async getMe(@Request() req): Promise<Object> {
         return {
             success: true,
             data: req.user
