@@ -2,13 +2,14 @@ import './styles.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { MutableRefObject, useRef, useState } from 'react';
 import { AuthClient } from '../../api/authClient';
+import { setAlert } from '../../context/alert';
+import { Spinner } from '../Spinner/Spinner';
 
 export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
     const [spinner, setSpinner] = useState(false);
 
     const userNameRef = useRef() as MutableRefObject<HTMLInputElement>;
     const passwordRef = useRef() as MutableRefObject<HTMLInputElement>;
-
     const navigate = useNavigate();
 
     const authTitle = type === 'login' ? 'Войти' : 'Регистрация';
@@ -27,14 +28,11 @@ export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
 
         setSpinner(false);
         navigate('/accountings');
+        setAlert({ alertText: 'Вход выполнен', alertStatus: 'success' });
     };
 
-    const register = async (
-        username: string,
-        password: string,
-        email: string
-    ) => {
-        if (!username || !password || !email) {
+    const register = async (username: string, password: string) => {
+        if (!username || !password) {
             return;
         }
 
@@ -42,32 +40,56 @@ export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
             return;
         }
 
-        const result = await AuthClient.login(username, password);
+        const result = await AuthClient.register(username, password);
+
+        if (!result) {
+            setSpinner(false);
+            return;
+        }
+
+        setSpinner(false);
+        navigate('/login');
+        setAlert({ alertText: 'Регистрация выполнена', alertStatus: 'success' });
+    };
+
+    const Auth = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setSpinner(true);
+
+        switch (type) {
+            case 'login':
+                login(userNameRef.current.value, passwordRef.current.value);
+                break;
+
+            case 'registration':
+                register(userNameRef.current.value, passwordRef.current.value);
+                break;
+        }
     };
 
     return (
         <div className="container">
             <h1>{authTitle}</h1>
-            <form className="form-group">
+            <form onSubmit={Auth} className="form-group">
                 <label className="auth-label">
                     Имя пользователя
-                    <input type="text" className="form-control" />
+                    <input ref={userNameRef} type="text" className="form-control" />
                 </label>
                 <label className="auth-label">
                     Введите пароль
-                    <input type="text" className="form-control" />
+                    <input ref={passwordRef} type="text" className="form-control" />
                 </label>
                 <button className="btn btn-primary auth-btn">
-                    {authTitle}
+                    {spinner ? <Spinner top={5} left={20} /> : authTitle}
                 </button>
             </form>
             {type === 'login' ? (
-                <div className="question_text">
+                <div className="question-text">
                     <span>Еще нет аккаунта?</span>
                     <Link to={'/registration'}>Зарегистрироваться</Link>
                 </div>
             ) : (
-                <div className="question_text">
+                <div className="question-text">
                     <span>Уже есть аккаунт?</span>
                     <Link to={'/login'}>Войти</Link>
                 </div>
