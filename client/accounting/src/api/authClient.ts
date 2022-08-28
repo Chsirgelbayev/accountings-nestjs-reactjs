@@ -4,14 +4,12 @@ import api from './axios';
 export class AuthClient {
     public static async login(username: string, password: string) {
         try {
-            console.log(username, password)
+            console.log(username, password);
 
             const result = await api.post('api/v1/auth/login', {
                 username,
                 password
             });
-
-            console.log(result);
 
             if (result.status === 201) {
                 setAuth(true);
@@ -23,14 +21,11 @@ export class AuthClient {
         } catch (e) {}
     }
 
-    public static async register(
-        username: string,
-        password: string,
-    ) {
+    public static async register(username: string, password: string) {
         try {
             const result = await api.post('/api/v1/auth/register', {
                 username,
-                password,
+                password
             });
 
             console.log(result);
