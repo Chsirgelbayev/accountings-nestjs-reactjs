@@ -58,7 +58,7 @@ export class AuthService {
         const cookieSettings: Record<string, Date | boolean | boolean> = {
             expires: new Date(
                 Date.now() +
-                    Number(jwtConfig.JWT_COOKIE_EXPIRE) * 24 * 60 * 60 * 1000
+                    Number(jwtConfig.COOKIE_EXPIRE) * 24 * 60 * 60 * 1000
             ),
             httpOnly: true
         };

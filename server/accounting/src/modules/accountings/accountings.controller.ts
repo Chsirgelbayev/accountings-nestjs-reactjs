@@ -4,6 +4,7 @@ import {
     Delete,
     Get,
     HttpCode,
+    HttpStatus,
     Param,
     Post,
     Put,
@@ -70,7 +71,7 @@ export class AccountingsController {
 
     @UseGuards(AuthJwtGuard)
     @Delete(':id')
-    @HttpCode(204)
+    @HttpCode(HttpStatus.NO_CONTENT)
     public async deleteAccounting(@Param('id') id: string): Promise<void> {
         return await this.accountingsService.deleteAccounting(id);
     }

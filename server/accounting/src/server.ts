@@ -29,8 +29,7 @@ const bootstrap = async (): Promise<void> => {
         app.use(morgan(ConfigEnum.dev));
     }
 
-    app
-        .use(cookieParser())
+    app.use(cookieParser())
         .useGlobalPipes(new ValidationPipe())
         .useGlobalFilters(new AllErrorsFilter());
 

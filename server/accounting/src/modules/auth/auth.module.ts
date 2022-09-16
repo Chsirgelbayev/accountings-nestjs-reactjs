@@ -15,10 +15,10 @@ import { ConfigEnum } from 'src/common/enums/config.enum';
         JwtModule.registerAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
-            useFactory: async (config: ConfigService): Promise<object> => ({
-                secret: config.get(ConfigEnum.JWT).SECRET,
+            useFactory: async (configService: ConfigService): Promise<object> => ({
+                secret: configService.get(ConfigEnum.JWT).SECRET,
                 signOptions: {
-                    expiresIn: config.get(ConfigEnum.JWT).EXPIRE
+                    expiresIn: configService.get(ConfigEnum.JWT).EXPIRE
                 }
             })
         }),
