@@ -2,16 +2,18 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
-
-import { configuration } from 'src/common/config/configuration';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../users/users.schema';
-import { messages } from 'src/common/constants/messages.constant';
+import { messages } from 'src/common/constants/messages.constants';
+import { ConfigService } from '@nestjs/config/dist';
+import { ConfigEnum } from 'src/common/enums/config.enum';
 
 @Injectable()
 export class AuthService {
     constructor(
+        private readonly configService: ConfigService,
+
         @InjectModel(User.name) private readonly usersSchema: Model<User>,
         private readonly jwtService: JwtService
     ) {}
@@ -49,23 +51,17 @@ export class AuthService {
     }
 
     private async generateToken(user) {
+        const jwtConfig = this.configService.get(ConfigEnum.JWT);
+
         const token: string = this.jwtService.sign(user);
 
         const cookieSettings: Record<string, Date | boolean | boolean> = {
             expires: new Date(
                 Date.now() +
-                    Number(configuration.JWT_COOKIE_EXPIRE) *
-                        24 *
-                        60 *
-                        60 *
-                        1000
+                    Number(jwtConfig.JWT_COOKIE_EXPIRE) * 24 * 60 * 60 * 1000
             ),
             httpOnly: true
         };
-
-        if (configuration.NODE_ENV === 'production') {
-            cookieSettings.secure = true;
-        }
 
         return {
             token,

@@ -4,13 +4,13 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
-import { configuration } from './common/config/configuration';
-import { swaggerConfig } from './common/config/swagger';
-import { nestOptions } from './common/config/nest';
+import { nestOptions } from './common/config/nestjs.config';
 import { AllErrorsFilter } from './common/filters/errors.filter';
 
 import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
+import { ConfigService } from '@nestjs/config/dist';
+import { ConfigEnum } from './common/enums/config.enum';
 
 const bootstrap = async (): Promise<void> => {
     const app: INestApplication =
@@ -19,8 +19,14 @@ const bootstrap = async (): Promise<void> => {
             nestOptions
         );
 
-    if (configuration.NODE_ENV === 'development') {
-        app.use(morgan('dev'));
+    const configService = app.get(ConfigService);
+
+    const SWAGGER_CONFIG = configService.get(ConfigEnum.SWAGGER);
+    const NODE_ENV = configService.get(ConfigEnum.NODE_ENV);
+    const PORT = configService.get(ConfigEnum.PORT);
+
+    if (NODE_ENV === ConfigEnum.development) {
+        app.use(morgan(ConfigEnum.dev));
     }
 
     app
@@ -29,19 +35,17 @@ const bootstrap = async (): Promise<void> => {
         .useGlobalFilters(new AllErrorsFilter());
 
     const swaggerCfg = new DocumentBuilder()
-        .setTitle(swaggerConfig.docsTitle)
-        .setDescription(swaggerConfig.docsDescription)
-        .setVersion(swaggerConfig.version)
+        .setTitle(SWAGGER_CONFIG.TITLE)
+        .setDescription(SWAGGER_CONFIG.DESCRIPTION)
+        .setVersion(SWAGGER_CONFIG.VERSION)
         .build();
 
     const document = SwaggerModule.createDocument(app, swaggerCfg);
-    SwaggerModule.setup(swaggerConfig.documentationPath, app, document);
+    SwaggerModule.setup(SWAGGER_CONFIG.PATH, app, document);
 
-    await app.listen(configuration.PORT, async (): Promise<void> => {
+    await app.listen(PORT, async (): Promise<void> => {
         console.log(
-            `Server running in ${
-                configuration.NODE_ENV
-            } mode on ${await app.getUrl()} HOST`
+            `Server running in ${NODE_ENV} mode on ${await app.getUrl()} HOST`
         );
     });
 };
