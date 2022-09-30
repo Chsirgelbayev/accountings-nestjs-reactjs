@@ -14,7 +14,7 @@ export class User {
     @Prop({ required: true, select: false })
     password: string;
 
-    comparePassword(password: string) {
+    comparePassword(password: string): boolean {
         return bcryptjs.compareSync(password, this.password);
     }
 }
@@ -26,7 +26,7 @@ usersSchema.pre('save', async function (next: NextFunction) {
         return next();
     }
 
-    const salt = await bcryptjs.genSalt(10);
+    const salt: string = await bcryptjs.genSalt(10);
     this.password = await bcryptjs.hash(this.password, salt);
 
     next();

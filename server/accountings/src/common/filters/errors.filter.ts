@@ -11,11 +11,12 @@ import {
 import { MongoServerError } from 'mongodb';
 import { Request, Response } from 'express';
 import { messages } from '../constants/messages.constants';
+import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 
 @Catch()
 export class AllErrorsFilter implements ExceptionFilter {
-    catch(err: InternalServerErrorException, host: ArgumentsHost) {
-        const ctx = host.switchToHttp();
+    catch(err: InternalServerErrorException, host: ArgumentsHost): void {
+        const ctx: HttpArgumentsHost = host.switchToHttp();
         const res: Response = ctx.getResponse();
         const req: Request = ctx.getRequest();
 

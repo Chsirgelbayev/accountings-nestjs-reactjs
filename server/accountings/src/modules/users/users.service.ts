@@ -12,7 +12,7 @@ export class UsersService {
     ) {}
 
     public async getAllUsers(): Promise<User[]> {
-        const users = await this.usersSchema.find();
+        const users: User[] = await this.usersSchema.find();
 
         if (!users.length) {
             throw new NotFoundException(messages.MESG_USERS_NOT_FOUND);
@@ -22,7 +22,7 @@ export class UsersService {
     }
 
     public async getUser(id: string): Promise<User> {
-        const user = await this.usersSchema.findById(id);
+        const user: User = await this.usersSchema.findById(id);
 
         if (!user) {
             throw new NotFoundException(messages.MESG_USER_NOT_FOUND);
@@ -35,7 +35,7 @@ export class UsersService {
         updateUserDto: UpdateUserDto,
         id: string
     ): Promise<User> {
-        const user = await this.usersSchema.findByIdAndUpdate(
+        const user: User = await this.usersSchema.findByIdAndUpdate(
             id,
             updateUserDto
         );

@@ -1,5 +1,5 @@
 import { NestApplicationOptions } from '@nestjs/common';
 
-export const nestOptions: NestApplicationOptions = {
+export const nestConfig: NestApplicationOptions = {
     logger: ['warn', 'error']
 };

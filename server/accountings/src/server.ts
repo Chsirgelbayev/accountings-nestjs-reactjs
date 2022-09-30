@@ -4,20 +4,17 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
-import { nestOptions } from './common/config/nestjs.config';
 import { AllErrorsFilter } from './common/filters/errors.filter';
 
 import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import { ConfigService } from '@nestjs/config/dist';
 import { ConfigEnum } from './common/enums/config.enum';
+import { nestConfig } from './config/nestjs.config';
 
 const bootstrap = async (): Promise<void> => {
     const app: INestApplication =
-        await NestFactory.create<NestExpressApplication>(
-            AppModule,
-            nestOptions
-        );
+        await NestFactory.create<NestExpressApplication>(AppModule, nestConfig);
 
     const configService = app.get(ConfigService);
 
@@ -29,7 +26,8 @@ const bootstrap = async (): Promise<void> => {
         app.use(morgan(ConfigEnum.dev));
     }
 
-    app.use(cookieParser())
+    app
+        .use(cookieParser())
         .useGlobalPipes(new ValidationPipe())
         .useGlobalFilters(new AllErrorsFilter());
 

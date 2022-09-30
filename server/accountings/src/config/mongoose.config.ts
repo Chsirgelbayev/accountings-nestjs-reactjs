@@ -4,16 +4,18 @@ import {
     MongooseModuleOptions,
     MongooseOptionsFactory
 } from '@nestjs/mongoose';
-import { ConfigEnum } from '../enums/config.enum';
-import { configuration } from './configuration';
+import { ConfigEnum } from 'src/common/enums/config.enum';
+
 
 @Injectable()
 export class MongoConfig implements MongooseOptionsFactory {
     constructor(private readonly configService: ConfigService) {}
 
     createMongooseOptions(): MongooseModuleOptions {
+        const { MONGO_URL } = this.configService.get(ConfigEnum.MONGO_URL);
+
         return {
-            uri: this.configService.get(ConfigEnum.MONGO_URL),
+            uri: MONGO_URL,
             connectionFactory: connection => {
                 console.log(`MongoDB connected: ${connection.host}`);
                 return connection;
