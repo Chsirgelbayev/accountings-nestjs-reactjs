@@ -21,7 +21,7 @@ export class AuthService {
     public async login(loginDto: LoginDto) {
         const user = await this.usersSchema
             .findOne({
-                email: loginDto.email
+                login: loginDto.login
             })
             .select('+password');
 
@@ -37,7 +37,6 @@ export class AuthService {
 
         return this.generateToken({
             id: user.id,
-            name: user.name
         });
     }
 
@@ -46,7 +45,6 @@ export class AuthService {
 
         return this.generateToken({
             id: user.id,
-            name: user.name
         });
     }
 

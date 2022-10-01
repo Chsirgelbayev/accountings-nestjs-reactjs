@@ -12,5 +12,11 @@ export class RegisterDto {
     @IsNotEmpty()
     @IsString()
     @MaxLength(20)
+    readonly login: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
+    @MaxLength(20)
     readonly password: string;
 }

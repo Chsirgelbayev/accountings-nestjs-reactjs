@@ -1,5 +1,6 @@
 import { NestApplicationOptions } from '@nestjs/common';
 
 export const nestConfig: NestApplicationOptions = {
-    logger: ['warn', 'error']
+    logger: ['warn', 'error'],
+    cors: true
 };

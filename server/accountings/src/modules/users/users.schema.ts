@@ -9,7 +9,7 @@ export type IUser = User & Document;
 @Schema({ timestamps: true })
 export class User {
     @Prop({ required: true })
-    name: string;
+    login: string;
 
     @Prop({ required: true, select: false })
     password: string;
@@ -21,7 +21,7 @@ export class User {
 
 export const usersSchema = SchemaFactory.createForClass(User);
 
-usersSchema.pre('save', async function (next: NextFunction) {
+usersSchema.pre('save', async function (next: NextFunction): Promise<void> {
     if (!this.isModified('password')) {
         return next();
     }
@@ -32,7 +32,7 @@ usersSchema.pre('save', async function (next: NextFunction) {
     next();
 });
 
-usersSchema.pre('remove', async function (next: NextFunction) {
+usersSchema.pre('remove', async function (next: NextFunction): Promise<void> {
     await this.$model(Accounting.name).deleteMany({ userId: this.id });
 
     next();

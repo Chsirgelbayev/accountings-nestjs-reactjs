@@ -14,12 +14,12 @@ export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
 
     const authTitle = type === 'login' ? 'Войти' : 'Регистрация';
 
-    const login = async (username: string, password: string) => {
-        if (!username || !password) {
+    const login = async (login: string, password: string) => {
+        if (!login || !password) {
             return;
         }
 
-        const result = await AuthClient.login(username, password);
+        const result = await AuthClient.login(login, password);
 
         if (!result) {
             setSpinner(false);
@@ -31,8 +31,8 @@ export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
         setAlert({ alertText: 'Вход выполнен', alertStatus: 'success' });
     };
 
-    const register = async (username: string, password: string) => {
-        if (!username || !password) {
+    const register = async (login: string, password: string) => {
+        if (!login || !password) {
             return;
         }
 
@@ -40,7 +40,7 @@ export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
             return;
         }
 
-        const result = await AuthClient.register(username, password);
+        const result = await AuthClient.register(login, password);
 
         if (!result) {
             setSpinner(false);
