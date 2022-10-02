@@ -36,7 +36,8 @@ export class AuthService {
         }
 
         return this.generateToken({
-            id: user.id,
+            login: user.login,
+            id: user.id
         });
     }
 
@@ -44,7 +45,8 @@ export class AuthService {
         const user = await this.usersSchema.create(registerDto);
 
         return this.generateToken({
-            id: user.id,
+            login: user.login,
+            id: user.id
         });
     }
 

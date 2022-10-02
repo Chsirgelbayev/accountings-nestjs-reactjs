@@ -6,12 +6,6 @@ export class RegisterDto {
     @IsNotEmpty()
     @IsString()
     @MaxLength(20)
-    readonly name: string;
-
-    @ApiProperty()
-    @IsNotEmpty()
-    @IsString()
-    @MaxLength(20)
     readonly login: string;
 
     @ApiProperty()
