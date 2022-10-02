@@ -14,7 +14,7 @@ export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
 
     const authTitle = type === 'login' ? 'Войти' : 'Регистрация';
 
-    const login = async (login: string, password: string) => {
+    const login = async (login: string, password: string): Promise<void> => {
         if (!login || !password) {
             return;
         }
@@ -31,7 +31,7 @@ export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
         setAlert({ alertText: 'Вход выполнен', alertStatus: 'success' });
     };
 
-    const register = async (login: string, password: string) => {
+    const register = async (login: string, password: string): Promise<void> => {
         if (!login || !password) {
             return;
         }
@@ -39,6 +39,8 @@ export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
         if (password.length < 4 || password.length > 20) {
             return;
         }
+
+        console.log(login, password)
 
         const result = await AuthClient.register(login, password);
 
@@ -49,7 +51,10 @@ export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
 
         setSpinner(false);
         navigate('/login');
-        setAlert({ alertText: 'Регистрация выполнена', alertStatus: 'success' });
+        setAlert({
+            alertText: 'Регистрация выполнена',
+            alertStatus: 'success'
+        });
     };
 
     const Auth = (event: React.FormEvent<HTMLFormElement>) => {
@@ -73,11 +78,19 @@ export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
             <form onSubmit={Auth} className="form-group">
                 <label className="auth-label">
                     Имя пользователя
-                    <input ref={userNameRef} type="text" className="form-control" />
+                    <input
+                        ref={userNameRef}
+                        type="text"
+                        className="form-control"
+                    />
                 </label>
                 <label className="auth-label">
                     Введите пароль
-                    <input ref={passwordRef} type="text" className="form-control" />
+                    <input
+                        ref={passwordRef}
+                        type="text"
+                        className="form-control"
+                    />
                 </label>
                 <button className="btn btn-primary auth-btn">
                     {spinner ? <Spinner top={5} left={20} /> : authTitle}

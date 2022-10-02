@@ -1,11 +1,9 @@
-import { setAuth } from '../context/auth';
+import { setAuth, setLogin } from '../context/auth';
 import api from './axios';
 
 export class AuthClient {
     public static async login(login: string, password: string) {
         try {
-            console.log(login, password);
-
             const result = await api.post('api/v1/auth/login', {
                 login,
                 password
@@ -13,12 +11,15 @@ export class AuthClient {
 
             if (result.status === 201) {
                 setAuth(true);
+                setLogin(result.data.login)
                 localStorage.setItem('auth', JSON.stringify(result.data));
                 return true;
             }
 
             return false;
-        } catch (e) {}
+        } catch (err) {
+
+        }
     }
 
     public static async register(login: string, password: string) {
@@ -28,12 +29,16 @@ export class AuthClient {
                 password
             });
 
+            console.log(result)
+
             if (result.status === 201) {
                 setAuth(false);
                 return true;
             }
 
             return false;
-        } catch (e) {}
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
