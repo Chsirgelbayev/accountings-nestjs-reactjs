@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { MongoConfig } from './config/mongoose.config';
+import { MongooseConfigOptions } from './config/mongoose.config';
 import { AccountingsModule } from './modules/accountings/accountings.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
@@ -10,18 +10,17 @@ import { configuration } from './config/configuration';
 @Module({
     imports: [
         ConfigModule.forRoot({
+            envFilePath: `${process.cwd()}/config.env`,
             load: [configuration]
         }),
 
         MongooseModule.forRootAsync({
             imports: [ConfigModule],
-            useClass: MongoConfig
+            useClass: MongooseConfigOptions
         }),
         AuthModule,
         UsersModule,
         AccountingsModule
-    ],
-    controllers: [],
-    providers: []
+    ]
 })
 export class AppModule {}

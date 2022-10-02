@@ -34,7 +34,6 @@
     "class-validator": "^0.13.2",
     "cookie-parser": "^1.4.6",
     "cross-env": "^7.0.3",
-    "dotenv": "^16.0.1",
     "mongoose": "^6.5.2",
     "mongoose-paginate-v2": "^1.7.0",
     "morgan": "^1.10.0",

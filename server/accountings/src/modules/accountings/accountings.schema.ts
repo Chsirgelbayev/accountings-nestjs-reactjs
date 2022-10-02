@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
+import { defaultUserId, refUser } from './accountings.constants';
 
 export type IAccounting = Accounting & Document;
 
@@ -14,7 +15,7 @@ export class Accounting {
     @Prop({ required: true, default: new Date() })
     date: Date;
 
-    @Prop({ required: true, default: '1', ref: 'User' })
+    @Prop({ required: true, default: defaultUserId, ref: refUser })
     userId: mongoose.Schema.Types.ObjectId;
 }
 

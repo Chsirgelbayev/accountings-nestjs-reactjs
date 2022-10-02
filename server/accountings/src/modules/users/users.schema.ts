@@ -8,6 +8,8 @@ export type IUser = User & Document;
 
 @Schema({ timestamps: true })
 export class User {
+    readonly id: string;
+
     @Prop({ required: true })
     login: string;
 

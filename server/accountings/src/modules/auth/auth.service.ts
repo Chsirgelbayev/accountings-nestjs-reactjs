@@ -7,7 +7,8 @@ import { Model } from 'mongoose';
 import { User } from '../users/users.schema';
 import { messages } from 'src/common/constants/messages.constants';
 import { ConfigService } from '@nestjs/config/dist';
-import { ConfigEnum } from 'src/common/enums/config.enum';
+import { ConfigEnum } from 'src/common/enums/config.enums';
+import { CookieSettings, TokenOptions } from './auth.type';
 
 @Injectable()
 export class AuthService {
@@ -18,8 +19,8 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) {}
 
-    public async login(loginDto: LoginDto) {
-        const user = await this.usersSchema
+    public async login(loginDto: LoginDto): Promise<TokenOptions> {
+        const user: User = await this.usersSchema
             .findOne({
                 login: loginDto.login
             })
@@ -37,11 +38,11 @@ export class AuthService {
 
         return this.generateToken({
             login: user.login,
-            id: user.id
+            id: user.id,
         });
     }
 
-    public async register(registerDto: RegisterDto) {
+    public async register(registerDto: RegisterDto): Promise<TokenOptions> {
         const user = await this.usersSchema.create(registerDto);
 
         return this.generateToken({
@@ -50,18 +51,23 @@ export class AuthService {
         });
     }
 
-    private async generateToken(user) {
+    private async generateToken(user): Promise<TokenOptions> {
         const jwtConfig = this.configService.get(ConfigEnum.JWT);
+        const NODE_ENV = this.configService.get(ConfigEnum.NODE_ENV)
 
         const token: string = this.jwtService.sign(user);
 
-        const cookieSettings: Record<string, Date | boolean | boolean> = {
+        const cookieSettings: CookieSettings= {
             expires: new Date(
                 Date.now() +
                     Number(jwtConfig.COOKIE_EXPIRE) * 24 * 60 * 60 * 1000
             ),
             httpOnly: true
         };
+
+        if(NODE_ENV === ConfigEnum.PRODUCTION) {
+            cookieSettings.secure = true
+        }
 
         return {
             token,

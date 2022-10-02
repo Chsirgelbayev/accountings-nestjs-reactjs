@@ -13,8 +13,8 @@ export class AccountingsService {
         private readonly accountingsSchema: Model<IAccounting>
     ) {}
 
-    public async findAllAccountings(id: string): Promise<Accounting[]> {
-        const accountings = await this.accountingsSchema.find({
+    public async findAll(id: string): Promise<Accounting[]> {
+        const accountings: Accounting[] = await this.accountingsSchema.find({
             userId: id
         });
 
@@ -25,17 +25,17 @@ export class AccountingsService {
         return accountings;
     }
 
-    public async createAccounting(
+    public async create(
         createAccountingDto: CreateAccountingDto
     ): Promise<Accounting> {
         return await this.accountingsSchema.create(createAccountingDto);
     }
 
-    public async updateAccounting(
+    public async update(
         id: string,
         updateAccountingDto: UpdateAccountingDto
     ): Promise<Accounting> {
-        const accounting = await this.accountingsSchema.findByIdAndUpdate(
+        const accounting: Accounting = await this.accountingsSchema.findByIdAndUpdate(
             id,
             updateAccountingDto,
             {
@@ -51,8 +51,8 @@ export class AccountingsService {
         return accounting;
     }
 
-    public async deleteAccounting(id: string) {
-        const accounting = await this.accountingsSchema.findByIdAndDelete(id);
+    public async delete(id: string) {
+        const accounting: Accounting = await this.accountingsSchema.findByIdAndDelete(id);
 
         if (!accounting) {
             throw new NotFoundException(messages.MESG_ACCOUNTING_NOT_FOUND);

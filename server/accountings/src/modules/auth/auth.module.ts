@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { JwtModule, JwtService } from '@nestjs/jwt';
-import { configuration } from 'src/config/configuration';
-import { UsersModule } from '../users/users.module';
+import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, usersSchema } from '../users/users.schema';
 import { ConfigModule, ConfigService } from '@nestjs/config/dist';
-import { ConfigEnum } from 'src/common/enums/config.enum';
+import { ConfigEnum } from 'src/common/enums/config.enums';
 
 @Module({
     imports: [
@@ -15,7 +13,9 @@ import { ConfigEnum } from 'src/common/enums/config.enum';
         JwtModule.registerAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
-            useFactory: async (configService: ConfigService): Promise<object> => ({
+            useFactory: async (
+                configService: ConfigService
+            ): Promise<object> => ({
                 secret: configService.get(ConfigEnum.JWT).SECRET,
                 signOptions: {
                     expiresIn: configService.get(ConfigEnum.JWT).EXPIRE

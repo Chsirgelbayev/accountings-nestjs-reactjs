@@ -9,7 +9,7 @@ import { AllErrorsFilter } from './common/filters/errors.filter';
 import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import { ConfigService } from '@nestjs/config/dist';
-import { ConfigEnum } from './common/enums/config.enum';
+import { ConfigEnum } from './common/enums/config.enums';
 import { nestConfig } from './config/nestjs.config';
 
 const bootstrap = async (): Promise<void> => {
@@ -22,7 +22,7 @@ const bootstrap = async (): Promise<void> => {
     const NODE_ENV = configService.get(ConfigEnum.NODE_ENV);
     const PORT = configService.get(ConfigEnum.PORT);
 
-    if (NODE_ENV === ConfigEnum.development) {
+    if (NODE_ENV === ConfigEnum.DEVELOPMENT) {
         app.use(morgan(ConfigEnum.dev));
     }
 

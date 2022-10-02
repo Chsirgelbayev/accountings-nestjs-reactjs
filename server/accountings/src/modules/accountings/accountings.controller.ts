@@ -8,11 +8,18 @@ import {
     Param,
     Post,
     Put,
-    Request,
     UseGuards
 } from '@nestjs/common';
+import { UserDecorator } from 'src/common/decorators/user.decorator';
 import { AuthJwtGuard } from '../auth/auth.guard';
+import { User } from '../users/users.schema';
+import { Accounting } from './accountings.schema';
 import { AccountingsService } from './accountings.service';
+import {
+    CreateAccountingResponse,
+    GetAllAccountingsResponse,
+    UpdateAccountingResponse
+} from './accountings.type';
 import { CreateAccountingDto } from './dto/create-accounting.dto';
 import { UpdateAccountingDto } from './dto/update-accounting.dto';
 
@@ -20,11 +27,13 @@ import { UpdateAccountingDto } from './dto/update-accounting.dto';
 export class AccountingsController {
     constructor(private readonly accountingsService: AccountingsService) {}
 
-    @UseGuards(AuthJwtGuard)
     @Get()
-    public async findAllAccountings(@Request() req): Promise<Object> {
-        const accountings = await this.accountingsService.findAllAccountings(
-            req.user.id
+    @UseGuards(AuthJwtGuard)
+    public async getAllAccountings(
+        @UserDecorator() user: User
+    ): Promise<GetAllAccountingsResponse> {
+        const accountings: Accounting[] = await this.accountingsService.findAll(
+            user.id
         );
 
         return {
@@ -33,32 +42,30 @@ export class AccountingsController {
         };
     }
 
-    @UseGuards(AuthJwtGuard)
     @Post()
+    @UseGuards(AuthJwtGuard)
     public async createAccounting(
-        @Body() createAccountingDto: CreateAccountingDto,
-        @Request() req
-    ): Promise<Object> {
-        req.body.userId = req.user.id;
-
-        const accounting = await this.accountingsService.createAccounting(
-            createAccountingDto
-        );
+        @UserDecorator() user: User,
+        @Body() createAccountingDto: CreateAccountingDto
+    ): Promise<CreateAccountingResponse> {
+        const accounting: Accounting = await this.accountingsService.create({
+            ...createAccountingDto,
+            userId: user.id
+        });
 
         return {
             success: true,
             data: accounting
         };
     }
-
-    @UseGuards(AuthJwtGuard)
     @Put(':id')
+    @UseGuards(AuthJwtGuard)
     @HttpCode(201)
     public async updateAccounting(
         @Param('id') id: string,
         @Body() updateAccountingDto: UpdateAccountingDto
-    ): Promise<Object> {
-        const accounting = await this.accountingsService.updateAccounting(
+    ): Promise<UpdateAccountingResponse> {
+        const accounting: Accounting = await this.accountingsService.update(
             id,
             updateAccountingDto
         );
@@ -69,10 +76,10 @@ export class AccountingsController {
         };
     }
 
-    @UseGuards(AuthJwtGuard)
     @Delete(':id')
+    @UseGuards(AuthJwtGuard)
     @HttpCode(HttpStatus.NO_CONTENT)
     public async deleteAccounting(@Param('id') id: string): Promise<void> {
-        return await this.accountingsService.deleteAccounting(id);
+        return await this.accountingsService.delete(id);
     }
 }

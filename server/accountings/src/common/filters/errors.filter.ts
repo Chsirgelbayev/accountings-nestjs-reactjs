@@ -17,8 +17,8 @@ import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 export class AllErrorsFilter implements ExceptionFilter {
     catch(err: InternalServerErrorException, host: ArgumentsHost): void {
         const ctx: HttpArgumentsHost = host.switchToHttp();
-        const res: Response = ctx.getResponse();
-        const req: Request = ctx.getRequest();
+        const res: Response = ctx.getResponse<Response>();
+        const req: Request = ctx.getRequest<Request>();
 
         if (err instanceof MongoServerError && err.code === 11000) {
             const message = `${messages.MESG_DUPLICATE} ${err}`;

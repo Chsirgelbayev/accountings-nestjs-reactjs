@@ -5,6 +5,7 @@ export const enum ConfigEnum {
     JWT = 'JWT',
     SWAGGER = 'SWAGGER',
 
-    development = 'development',
+    PRODUCTION = 'production',
+    DEVELOPMENT = 'development',
     dev = 'dev'
 }
