@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
-import { messages } from 'src/common/constants/messages.constants';
+import { ExceptionMessage } from 'src/common/enums/exception-message.enum';
 import { Request } from 'express';
 import { User } from '../users/users.schema';
 
@@ -30,7 +30,7 @@ export class AuthJwtGuard implements CanActivate {
         }
 
         if (!token) {
-            throw new UnauthorizedException(messages.MESG_USER_NOT_AUTH);
+            throw new UnauthorizedException(ExceptionMessage.USER_NOT_AUTH);
         }
 
         try {
@@ -38,7 +38,7 @@ export class AuthJwtGuard implements CanActivate {
 
             return true;
         } catch (e) {
-            throw new UnauthorizedException(messages.MESG_INVALID_TOKEN);
+            throw new UnauthorizedException(ExceptionMessage.INVALID_TOKEN);
         }
     }
 }

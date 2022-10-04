@@ -5,7 +5,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, usersSchema } from '../users/users.schema';
 import { ConfigModule, ConfigService } from '@nestjs/config/dist';
-import { ConfigEnum } from 'src/common/enums/config.enums';
+import { ConfigEnum } from 'src/common/enums/config.enum';
 
 @Module({
     imports: [

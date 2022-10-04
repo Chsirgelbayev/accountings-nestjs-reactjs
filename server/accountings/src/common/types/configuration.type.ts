@@ -1,4 +1,4 @@
-export interface Configuration {
+export interface IConfiguration {
     readonly PORT: number | string;
     readonly NODE_ENV: string;
     readonly MONGO_URL: string;

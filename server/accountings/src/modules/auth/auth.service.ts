@@ -5,9 +5,9 @@ import { RegisterDto } from './dto/register.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../users/users.schema';
-import { messages } from 'src/common/constants/messages.constants';
+import { ExceptionMessage } from 'src/common/enums/exception-message.enum';
 import { ConfigService } from '@nestjs/config/dist';
-import { ConfigEnum } from 'src/common/enums/config.enums';
+import { ConfigEnum } from 'src/common/enums/config.enum';
 import { CookieSettings, TokenOptions } from './auth.type';
 
 @Injectable()
@@ -27,13 +27,13 @@ export class AuthService {
             .select('+password');
 
         if (!user) {
-            throw new UnauthorizedException(messages.MESG_INVALID_CREDENTIALS);
+            throw new UnauthorizedException(ExceptionMessage.INVALID_CREDENTIALS);
         }
 
         const isMatch: boolean = await user.comparePassword(loginDto.password);
 
         if (!isMatch) {
-            throw new UnauthorizedException(messages.MESG_INVALID_PASSWORD);
+            throw new UnauthorizedException(ExceptionMessage.INVALID_PASSWORD);
         }
 
         return this.generateToken({

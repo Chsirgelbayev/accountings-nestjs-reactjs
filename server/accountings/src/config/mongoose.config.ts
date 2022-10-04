@@ -4,7 +4,7 @@ import {
     MongooseModuleOptions,
     MongooseOptionsFactory
 } from '@nestjs/mongoose';
-import { ConfigEnum } from 'src/common/enums/config.enums';
+import { ConfigEnum } from 'src/common/enums/config.enum';
 
 @Injectable()
 export class MongooseConfigOptions implements MongooseOptionsFactory {

@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { MongoServerError } from 'mongodb';
 import { Request, Response } from 'express';
-import { messages } from '../constants/messages.constants';
+import { ExceptionMessage } from '../enums/exception-message.enum';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 
 @Catch()
@@ -21,12 +21,12 @@ export class AllErrorsFilter implements ExceptionFilter {
         const req: Request = ctx.getRequest<Request>();
 
         if (err instanceof MongoServerError && err.code === 11000) {
-            const message = `${messages.MESG_DUPLICATE} ${err}`;
+            const message = `${ExceptionMessage.DUPLICATE} ${err}`;
             err = new BadRequestException(message);
         }
 
         if (err.name === 'CastError') {
-            const message = `${messages.MESG_RESOURS_NOT_FOUND}`;
+            const message = ExceptionMessage.RESOURS_NOT_FOUND;
             err = new NotFoundException(message);
         }
 

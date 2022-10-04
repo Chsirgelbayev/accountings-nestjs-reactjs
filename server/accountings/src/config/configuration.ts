@@ -1,7 +1,7 @@
 import { ConfigFactory } from '@nestjs/config';
-import { Configuration } from 'src/common/types/configuration.type';
+import { IConfiguration } from 'src/common/types/configuration.type';
 
-export const configuration: ConfigFactory = (): Configuration => ({
+export const configuration: ConfigFactory = (): IConfiguration => ({
     PORT: process.env.PORT,
     NODE_ENV: process.env.NODE_ENV,
     MONGO_URL: process.env.MONGO_URL,

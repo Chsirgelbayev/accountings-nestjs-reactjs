@@ -4,12 +4,12 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
-import { AllErrorsFilter } from './common/filters/errors.filter';
+import { AllErrorsFilter } from './common/filters/exception.filter';
 
 import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import { ConfigService } from '@nestjs/config/dist';
-import { ConfigEnum } from './common/enums/config.enums';
+import { ConfigEnum } from './common/enums/config.enum';
 import { nestConfig } from './config/nestjs.config';
 
 const bootstrap = async (): Promise<void> => {
@@ -19,8 +19,8 @@ const bootstrap = async (): Promise<void> => {
     const configService = app.get(ConfigService);
 
     const SWAGGER_CONFIG = configService.get(ConfigEnum.SWAGGER);
-    const NODE_ENV = configService.get(ConfigEnum.NODE_ENV);
-    const PORT = configService.get(ConfigEnum.PORT);
+    const NODE_ENV = configService.get<string>(ConfigEnum.NODE_ENV);
+    const PORT = configService.get<string>(ConfigEnum.PORT);
 
     if (NODE_ENV === ConfigEnum.DEVELOPMENT) {
         app.use(morgan(ConfigEnum.dev));

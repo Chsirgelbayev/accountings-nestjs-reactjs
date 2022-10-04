@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { messages } from 'src/common/constants/messages.constants';
+import { ExceptionMessage } from 'src/common/enums/exception-message.enum';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { IUser, User } from './users.schema';
 
@@ -15,7 +15,7 @@ export class UsersService {
         const users: User[] = await this.usersSchema.find();
 
         if (!users.length) {
-            throw new NotFoundException(messages.MESG_USERS_NOT_FOUND);
+            throw new NotFoundException(ExceptionMessage.USERS_NOT_FOUND);
         }
 
         return users;
@@ -25,7 +25,7 @@ export class UsersService {
         const user: User = await this.usersSchema.findById(id);
 
         if (!user) {
-            throw new NotFoundException(messages.MESG_USER_NOT_FOUND);
+            throw new NotFoundException(ExceptionMessage.USER_NOT_FOUND);
         }
 
         return user;
@@ -41,7 +41,7 @@ export class UsersService {
         );
 
         if (!user) {
-            throw new NotFoundException(messages.MESG_USER_NOT_FOUND);
+            throw new NotFoundException(ExceptionMessage.USER_NOT_FOUND);
         }
 
         return user;
@@ -51,7 +51,7 @@ export class UsersService {
         const user = await this.usersSchema.findById(id);
 
         if (!user) {
-            throw new NotFoundException(messages.MESG_USER_NOT_FOUND);
+            throw new NotFoundException(ExceptionMessage.USER_NOT_FOUND);
         }
 
         await user.remove();

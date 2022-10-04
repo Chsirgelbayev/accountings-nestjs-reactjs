@@ -18,7 +18,7 @@ import {
     TAG
 } from './auth.constants';
 import { LoginResponse, RegisterResponse, GetMeResponse } from './auth.type';
-import { AuthEnum } from './auth.enums';
+import { Auth } from './auth.enum';
 import { AuthJwtGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
@@ -46,7 +46,7 @@ export class AuthController {
         const tokenOptions = await this.authService.login(loginDto);
 
         res.cookie(
-            AuthEnum.TOKEN,
+            Auth.TOKEN,
             tokenOptions.token,
             tokenOptions.cookieSettings
         ).json({ success: true, token: tokenOptions.token });
