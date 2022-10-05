@@ -4,8 +4,8 @@ export const enum ConfigEnum {
     MONGO_URL = 'MONGO_URL',
     JWT = 'JWT',
     SWAGGER = 'SWAGGER',
-
     PRODUCTION = 'production',
     DEVELOPMENT = 'development',
-    dev = 'dev'
+    dev = 'dev',
+    REQUEST_TIMEOUT_TIME = 'REQUEST_TIMEOUT_TIME',
 }

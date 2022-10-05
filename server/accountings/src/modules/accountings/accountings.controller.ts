@@ -11,7 +11,7 @@ import {
     UseGuards
 } from '@nestjs/common';
 import { UserDecorator } from 'src/common/decorators/user.decorator';
-import { AuthJwtGuard } from '../auth/auth.guard';
+import { AuthJwtGuard } from '../auth/auth-jwt.guard';
 import { User } from '../users/users.schema';
 import { Accounting } from './accountings.schema';
 import { AccountingsService } from './accountings.service';

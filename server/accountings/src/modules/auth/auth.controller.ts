@@ -19,7 +19,7 @@ import {
 } from './auth.constants';
 import { LoginResponse, RegisterResponse, GetMeResponse } from './auth.type';
 import { Auth } from './auth.enum';
-import { AuthJwtGuard } from './auth.guard';
+import { AuthJwtGuard } from './auth-jwt.guard';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';

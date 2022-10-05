@@ -4,13 +4,14 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
-import { AllErrorsFilter } from './common/filters/exception.filter';
+import { AllErrorsFilter } from './common/filters/all-exception.filter';
 
 import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import { ConfigService } from '@nestjs/config/dist';
 import { ConfigEnum } from './common/enums/config.enum';
 import { nestConfig } from './config/nestjs.config';
+import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 
 const bootstrap = async (): Promise<void> => {
     const app: INestApplication =
@@ -29,7 +30,8 @@ const bootstrap = async (): Promise<void> => {
     app
         .use(cookieParser())
         .useGlobalPipes(new ValidationPipe())
-        .useGlobalFilters(new AllErrorsFilter());
+        .useGlobalFilters(new AllErrorsFilter())
+        .useGlobalInterceptors(new TimeoutInterceptor(configService))
 
     const swaggerCfg = new DocumentBuilder()
         .setTitle(SWAGGER_CONFIG.TITLE)
