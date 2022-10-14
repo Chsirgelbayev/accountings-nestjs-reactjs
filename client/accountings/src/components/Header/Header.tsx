@@ -1,6 +1,6 @@
 import { useStore } from 'effector-react';
 import { $login } from '../../context/auth';
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '../../hooks/use-theme';
 
 export const Header = () => {
     const { switchTheme, theme } = useTheme();

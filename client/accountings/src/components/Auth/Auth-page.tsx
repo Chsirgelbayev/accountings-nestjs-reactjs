@@ -1,7 +1,7 @@
 import './styles.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { MutableRefObject, useRef, useState } from 'react';
-import { AuthClient } from '../../api/authClient';
+import { AuthClient } from '../../api/auth-client';
 import { setAlert } from '../../context/alert';
 import { Spinner } from '../Spinner/Spinner';
 

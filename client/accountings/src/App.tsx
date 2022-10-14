@@ -6,7 +6,7 @@ import {
     Route,
     Navigate
 } from 'react-router-dom';
-import { Auth } from './components/Auth/AuthPage';
+import { Auth } from './components/Auth/Auth-page';
 import { Header } from './components/Header/Header';
 import { $auth } from './context/auth';
 
