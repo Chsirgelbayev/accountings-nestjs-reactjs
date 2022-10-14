@@ -10,12 +10,12 @@ import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import { ConfigService } from '@nestjs/config/dist';
 import { ConfigEnum } from './common/enums/config.enum';
-import { nestConfig } from './config/nestjs.config';
+import { appConfig } from './config/app.config';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 
 const bootstrap = async (): Promise<void> => {
     const app: INestApplication =
-        await NestFactory.create<NestExpressApplication>(AppModule, nestConfig);
+        await NestFactory.create<NestExpressApplication>(AppModule, appConfig);
 
     const configService = app.get(ConfigService);
 

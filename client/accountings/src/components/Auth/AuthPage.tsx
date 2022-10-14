@@ -16,6 +16,8 @@ export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
 
     const login = async (login: string, password: string): Promise<void> => {
         if (!login || !password) {
+            setSpinner(false);
+
             return;
         }
 
@@ -39,8 +41,6 @@ export const Auth = ({ type }: { type: 'login' | 'registration' }) => {
         if (password.length < 4 || password.length > 20) {
             return;
         }
-
-        console.log(login, password)
 
         const result = await AuthClient.register(login, password);
 

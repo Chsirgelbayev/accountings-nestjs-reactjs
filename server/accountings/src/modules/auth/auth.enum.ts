@@ -1,3 +1,3 @@
-export const enum Auth{
+export const enum Auth {
     TOKEN = 'token'
 }
