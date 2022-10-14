@@ -16,7 +16,6 @@ export const useTheme = () => {
         localStorage.setItem('theme', JSON.stringify(inverseMode));
 
         setCurrentMode(theme);
-
         setTheme(inverseMode);
     };
 

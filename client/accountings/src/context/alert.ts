@@ -6,4 +6,4 @@ export const setAlert = error.createEvent<IAlert>();
 
 export const $alert = error
     .createStore<IAlert>({ alertText: '', alertStatus: '' })
-    .on(setAlert, (_, value) => value);
+    .on(setAlert, (_: IAlert, value: IAlert): IAlert => value);
