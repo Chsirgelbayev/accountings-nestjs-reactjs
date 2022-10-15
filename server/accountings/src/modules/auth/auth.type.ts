@@ -15,10 +15,10 @@ export class GetMeResponse {
     readonly data: User;
 }
 
-export class CookieSettings {
+export interface CookieSettings {
     readonly expires: Date;
     readonly httpOnly: boolean;
-    public secure?: boolean;
+    secure?: boolean;
 }
 
 export interface TokenOptions {
