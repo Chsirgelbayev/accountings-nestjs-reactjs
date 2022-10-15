@@ -8,17 +8,8 @@ import {
     UseGuards
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import {
-    GET_ME,
-    GET_ME_SUCCESS,
-    LOGIN,
-    LOGIN_SUCCESS,
-    REGISTER,
-    REGISTER_SUCCESS,
-    TAG
-} from './auth.constants';
 import { LoginResponse, RegisterResponse, GetMeResponse } from './auth.type';
-import { Auth } from './auth.enum';
+import { Auth, AuthSwagger } from './auth.enum';
 import { AuthJwtGuard } from './auth-jwt.guard';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
@@ -27,15 +18,16 @@ import { UserDecorator } from 'src/common/decorators/user.decorator';
 import { User } from '../users/users.schema';
 import { Response } from 'express';
 
-@ApiTags(TAG)
+
+@ApiTags(AuthSwagger.TAG)
 @Controller('api/v1/auth')
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
-    @ApiOperation({ summary: LOGIN })
+    @ApiOperation({ summary: AuthSwagger.LOGIN })
     @ApiResponse({
         status: HttpStatus.CREATED,
-        description: LOGIN_SUCCESS,
+        description: AuthSwagger.LOGIN_SUCCESS,
         type: LoginResponse
     })
     @Post('login')
@@ -57,10 +49,10 @@ export class AuthController {
         };
     }
 
-    @ApiOperation({ summary: REGISTER })
+    @ApiOperation({ summary: AuthSwagger.REGISTER })
     @ApiResponse({
         status: HttpStatus.CREATED,
-        description: REGISTER_SUCCESS,
+        description: AuthSwagger.REGISTER_SUCCESS,
         type: RegisterResponse
     })
     @Post('register')
@@ -82,10 +74,10 @@ export class AuthController {
         };
     }
 
-    @ApiOperation({ summary: GET_ME })
+    @ApiOperation({ summary: AuthSwagger.GET_ME })
     @ApiResponse({
         status: HttpStatus.CREATED,
-        description: GET_ME_SUCCESS,
+        description: AuthSwagger.GET_ME_SUCCESS,
         type: GetMeResponse
     })
     @Get('me')
