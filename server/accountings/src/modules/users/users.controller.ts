@@ -29,7 +29,7 @@ export class UsersController {
 
     @UseGuards(AuthJwtGuard)
     @Get(':id')
-    public async getUser(@Param('id') id: string): Promise<Object> {
+    public async getUser(@Param('id') id: string) {
         const user = await this.usersService.getUser(id);
 
         return {
@@ -44,7 +44,7 @@ export class UsersController {
     public async updateUser(
         @Body() updateUserDto: UpdateUserDto,
         @Param('id') id: string
-    ): Promise<Object> {
+    ) {
         const user = await this.usersService.updateUser(updateUserDto, id);
 
         return {

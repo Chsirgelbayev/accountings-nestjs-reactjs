@@ -1,11 +1,9 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-
 import { AllErrorsFilter } from './common/filters/all-exception.filter';
-
 import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import { ConfigService } from '@nestjs/config/dist';
@@ -24,14 +22,14 @@ const bootstrap = async (): Promise<void> => {
     const PORT = configService.get<string>(ConfigEnum.PORT);
 
     if (NODE_ENV === ConfigEnum.DEVELOPMENT) {
-        app.use(morgan(ConfigEnum.dev));
+        app.use(morgan('dev'));
     }
 
     app
         .use(cookieParser())
         .useGlobalPipes(new ValidationPipe())
         .useGlobalFilters(new AllErrorsFilter())
-        .useGlobalInterceptors(new TimeoutInterceptor(configService))
+        .useGlobalInterceptors(new TimeoutInterceptor(configService));
 
     const swaggerCfg = new DocumentBuilder()
         .setTitle(SWAGGER_CONFIG.TITLE)
@@ -43,7 +41,7 @@ const bootstrap = async (): Promise<void> => {
     SwaggerModule.setup(SWAGGER_CONFIG.PATH, app, document);
 
     await app.listen(PORT, async (): Promise<void> => {
-        console.log(
+        Logger.log(
             `Server running in ${NODE_ENV} mode on ${await app.getUrl()} HOST`
         );
     });

@@ -1,4 +1,4 @@
-export const enum ExceptionMessage {
+export enum ExceptionMessage {
     DUPLICATE = 'Duplicate field value:',
     RESOURS_NOT_FOUND = 'Resours not found',
     USER_NOT_AUTH = 'User unauthorized',
@@ -9,5 +9,6 @@ export const enum ExceptionMessage {
     ACCOUNTING_NOT_FOUND = 'Accounting not found',
     USERS_NOT_FOUND = 'Users not found',
     USER_NOT_FOUND = 'User not found',
-    REQUSET_TIMEOUT = 'Request timeout'
+    REQUSET_TIMEOUT = 'Request timeout',
+    SERVER_ERROR = 'Server has an error',
 }

@@ -1,11 +1,11 @@
 import { ConfigFactory } from '@nestjs/config';
-import { IConfiguration } from 'src/common/types/configuration.type';
+import { IConfiguration } from 'src/common/types/configuration.interface';
 
 export const configuration: ConfigFactory = (): IConfiguration => ({
     PORT: process.env.PORT,
     NODE_ENV: process.env.NODE_ENV,
     MONGO_URL: process.env.MONGO_URL,
-    REQUEST_TIMEOUT_TIME: 1000,
+    REQUEST_TIMEOUT_TIME: 3000,
 
     JWT: {
         COOKIE_EXPIRE: process.env.JWT_COOKIE_EXPIRE,

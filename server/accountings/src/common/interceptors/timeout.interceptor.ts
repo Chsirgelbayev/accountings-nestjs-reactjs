@@ -16,7 +16,7 @@ export class TimeoutInterceptor implements NestInterceptor {
     constructor(private readonly configService: ConfigService) {}
 
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-        const reqStartTime = Date.now();
+        const now = Date.now();
         const REQUEST_TIMEOUT_TIME = this.configService.get(
             ConfigEnum.REQUEST_TIMEOUT_TIME
         );
@@ -27,7 +27,7 @@ export class TimeoutInterceptor implements NestInterceptor {
                 if (err instanceof TimeoutError) {
                     throw new RequestTimeoutException(
                         `${ExceptionMessage.REQUSET_TIMEOUT} ${
-                            Date.now() - reqStartTime
+                            Date.now() - now
                         }ms`
                     );
                 }

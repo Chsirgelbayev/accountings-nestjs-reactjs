@@ -12,6 +12,7 @@ import { MongoServerError } from 'mongodb';
 import { Request, Response } from 'express';
 import { ExceptionMessage } from '../enums/exception-message.enum';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
+import { ErrorName } from '../enums/error-name.enum';
 
 @Catch()
 export class AllErrorsFilter implements ExceptionFilter {
@@ -25,12 +26,12 @@ export class AllErrorsFilter implements ExceptionFilter {
             err = new BadRequestException(message);
         }
 
-        if (err.name === 'CastError') {
+        if (err.name === ErrorName.CAST) {
             const message = ExceptionMessage.RESOURS_NOT_FOUND;
             err = new NotFoundException(message);
         }
 
-        if (err.name === 'ValidationError') {
+        if (err.name === ErrorName.VALIDATION) {
             err = new BadRequestException(err.message);
         }
 
@@ -42,7 +43,7 @@ export class AllErrorsFilter implements ExceptionFilter {
         const errorResponce: any =
             err instanceof HttpException
                 ? err.getResponse()
-                : { message: 'Server error' };
+                : { message: ExceptionMessage.SERVER_ERROR };
 
         res.status(status).json({
             success: false,
