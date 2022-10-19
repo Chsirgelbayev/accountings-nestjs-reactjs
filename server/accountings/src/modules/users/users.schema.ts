@@ -4,7 +4,7 @@ import { NextFunction } from 'express';
 import { Document } from 'mongoose';
 import { Accounting } from '../accountings/accountings.schema';
 
-export type IUser = User & Document;
+export type UserDocument = User & Document;
 
 @Schema({ timestamps: true })
 export class User {

@@ -19,7 +19,7 @@ import {
     CreateAccountingResponse,
     GetAllAccountingsResponse,
     UpdateAccountingResponse
-} from './accountings.type';
+} from './accountings.interface';
 import { CreateAccountingDto } from './dto/create-accounting.dto';
 import { UpdateAccountingDto } from './dto/update-accounting.dto';
 

@@ -1,4 +1,4 @@
-export enum ConfigEnum {
+export enum PropertyPath  {
     PRODUCTION = 'production',
     DEVELOPMENT = 'development',
     PORT = 'PORT',

@@ -10,5 +10,5 @@ export enum ExceptionMessage {
     USERS_NOT_FOUND = 'Users not found',
     USER_NOT_FOUND = 'User not found',
     REQUSET_TIMEOUT = 'Request timeout',
-    SERVER_ERROR = 'Server has an error',
+    SERVER_ERROR = 'Server has an error'
 }

@@ -1,5 +1,5 @@
 import { ConfigFactory } from '@nestjs/config';
-import { IConfiguration } from 'src/common/types/configuration.interface';
+import { IConfiguration } from 'src/common/interfaces/configuration.interface';
 
 export const configuration: ConfigFactory = (): IConfiguration => ({
     PORT: process.env.PORT,

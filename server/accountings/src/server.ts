@@ -7,9 +7,10 @@ import { AllErrorsFilter } from './common/filters/all-exception.filter';
 import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import { ConfigService } from '@nestjs/config/dist';
-import { ConfigEnum } from './common/enums/config.enum';
+import { PropertyPath } from './common/enums/property-path.enum';
 import { appConfig } from './config/app.config';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
+import { developmet } from './common/constants/app.constant';
 
 const bootstrap = async (): Promise<void> => {
     const app: INestApplication =
@@ -17,16 +18,15 @@ const bootstrap = async (): Promise<void> => {
 
     const configService = app.get(ConfigService);
 
-    const SWAGGER_CONFIG = configService.get(ConfigEnum.SWAGGER);
-    const NODE_ENV = configService.get<string>(ConfigEnum.NODE_ENV);
-    const PORT = configService.get<string>(ConfigEnum.PORT);
+    const SWAGGER_CONFIG = configService.get(PropertyPath.SWAGGER);
+    const NODE_ENV = configService.get<string>(PropertyPath.NODE_ENV);
+    const PORT = configService.get<string>(PropertyPath.PORT);
 
-    if (NODE_ENV === ConfigEnum.DEVELOPMENT) {
+    if (NODE_ENV === developmet) {
         app.use(morgan('dev'));
     }
 
-    app
-        .use(cookieParser())
+    app.use(cookieParser())
         .useGlobalPipes(new ValidationPipe())
         .useGlobalFilters(new AllErrorsFilter())
         .useGlobalInterceptors(new TimeoutInterceptor(configService));

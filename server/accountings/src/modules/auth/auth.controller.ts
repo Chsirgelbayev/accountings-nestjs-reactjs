@@ -8,7 +8,11 @@ import {
     UseGuards
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { LoginResponse, RegisterResponse, GetMeResponse } from './auth.type';
+import {
+    LoginResponse,
+    RegisterResponse,
+    GetMeResponse
+} from './auth.interface';
 import { Auth, AuthSwagger } from './auth.enum';
 import { AuthJwtGuard } from './auth-jwt.guard';
 import { AuthService } from './auth.service';
@@ -17,7 +21,6 @@ import { RegisterDto } from './dto/register.dto';
 import { UserDecorator } from 'src/common/decorators/user.decorator';
 import { User } from '../users/users.schema';
 import { Response } from 'express';
-
 
 @ApiTags(AuthSwagger.TAG)
 @Controller('api/v1/auth')
@@ -82,10 +85,7 @@ export class AuthController {
     })
     @Get('me')
     @UseGuards(AuthJwtGuard)
-    public async getMe(
-        @UserDecorator() user: User,
-    ): Promise<GetMeResponse> {
-
+    public async getMe(@UserDecorator() user: User): Promise<GetMeResponse> {
         return {
             success: true,
             data: user

@@ -5,7 +5,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, usersSchema } from '../users/users.schema';
 import { ConfigModule, ConfigService } from '@nestjs/config/dist';
-import { ConfigEnum } from 'src/common/enums/config.enum';
+import { PropertyPath } from 'src/common/enums/property-path.enum';
 
 @Module({
     imports: [
@@ -16,9 +16,9 @@ import { ConfigEnum } from 'src/common/enums/config.enum';
             useFactory: async (
                 configService: ConfigService
             ): Promise<object> => ({
-                secret: configService.get(ConfigEnum.JWT).SECRET,
+                secret: configService.get(PropertyPath.JWT).SECRET,
                 signOptions: {
-                    expiresIn: configService.get(ConfigEnum.JWT).EXPIRE
+                    expiresIn: configService.get(PropertyPath.JWT).EXPIRE
                 }
             })
         }),

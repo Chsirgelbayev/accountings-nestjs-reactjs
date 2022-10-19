@@ -3,12 +3,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ExceptionMessage } from 'src/common/enums/exception-message.enum';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { IUser, User } from './users.schema';
+import { UserDocument, User } from './users.schema';
 
 @Injectable()
 export class UsersService {
     constructor(
-        @InjectModel(User.name) private readonly usersSchema: Model<IUser>
+        @InjectModel(User.name) private readonly usersSchema: Model<UserDocument>
     ) {}
 
     public async getAllUsers(): Promise<User[]> {

@@ -7,8 +7,9 @@ import { Model } from 'mongoose';
 import { User } from '../users/users.schema';
 import { ExceptionMessage } from 'src/common/enums/exception-message.enum';
 import { ConfigService } from '@nestjs/config/dist';
-import { ConfigEnum } from 'src/common/enums/config.enum';
-import { CookieSettings, TokenOptions } from './auth.type';
+import { PropertyPath } from 'src/common/enums/property-path.enum';
+import { CookieSettings, TokenOptions } from './auth.interface';
+import { production } from 'src/common/constants/app.constant';
 
 @Injectable()
 export class AuthService {
@@ -27,7 +28,9 @@ export class AuthService {
             .select('+password');
 
         if (!user) {
-            throw new UnauthorizedException(ExceptionMessage.INVALID_CREDENTIALS);
+            throw new UnauthorizedException(
+                ExceptionMessage.INVALID_CREDENTIALS
+            );
         }
 
         const isMatch: boolean = await user.comparePassword(loginDto.password);
@@ -38,7 +41,7 @@ export class AuthService {
 
         return this.generateToken({
             login: user.login,
-            id: user.id,
+            id: user.id
         });
     }
 
@@ -52,12 +55,12 @@ export class AuthService {
     }
 
     private async generateToken(user): Promise<TokenOptions> {
-        const jwtConfig = this.configService.get(ConfigEnum.JWT);
-        const NODE_ENV = this.configService.get(ConfigEnum.NODE_ENV)
+        const jwtConfig = this.configService.get(PropertyPath.JWT);
+        const NODE_ENV = this.configService.get(PropertyPath.NODE_ENV);
 
         const token: string = this.jwtService.sign(user);
 
-        const cookieSettings: CookieSettings= {
+        const cookieSettings: CookieSettings = {
             expires: new Date(
                 Date.now() +
                     Number(jwtConfig.COOKIE_EXPIRE) * 24 * 60 * 60 * 1000
@@ -65,8 +68,8 @@ export class AuthService {
             httpOnly: true
         };
 
-        if(NODE_ENV === ConfigEnum.PRODUCTION) {
-            cookieSettings.secure = true
+        if (NODE_ENV === production) {
+            cookieSettings.secure = true;
         }
 
         return {

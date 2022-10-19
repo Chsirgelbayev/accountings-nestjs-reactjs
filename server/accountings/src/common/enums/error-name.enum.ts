@@ -6,4 +6,3 @@ export enum ErrorName {
     REFERENCE = 'ReferenceError',
     TYPE = 'TypeError'
 }
-

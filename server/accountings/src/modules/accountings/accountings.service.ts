@@ -35,14 +35,15 @@ export class AccountingsService {
         id: string,
         updateAccountingDto: UpdateAccountingDto
     ): Promise<Accounting> {
-        const accounting: Accounting = await this.accountingsSchema.findByIdAndUpdate(
-            id,
-            updateAccountingDto,
-            {
-                new: true,
-                runValidators: true
-            }
-        );
+        const accounting: Accounting =
+            await this.accountingsSchema.findByIdAndUpdate(
+                id,
+                updateAccountingDto,
+                {
+                    new: true,
+                    runValidators: true
+                }
+            );
 
         if (!accounting) {
             throw new NotFoundException(ExceptionMessage.ACCOUNTING_NOT_FOUND);
@@ -52,7 +53,8 @@ export class AccountingsService {
     }
 
     public async delete(id: string) {
-        const accounting: Accounting = await this.accountingsSchema.findByIdAndDelete(id);
+        const accounting: Accounting =
+            await this.accountingsSchema.findByIdAndDelete(id);
 
         if (!accounting) {
             throw new NotFoundException(ExceptionMessage.ACCOUNTING_NOT_FOUND);

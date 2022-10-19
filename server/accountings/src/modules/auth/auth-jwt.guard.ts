@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { ExceptionMessage } from 'src/common/enums/exception-message.enum';
 import { Request } from 'express';
+import { ExpressRequest } from 'src/common/interfaces/request.interface';
 
 @Injectable()
 export class AuthJwtGuard implements CanActivate {
@@ -16,7 +17,7 @@ export class AuthJwtGuard implements CanActivate {
     canActivate(
         context: ExecutionContext
     ): boolean | Promise<boolean> | Observable<boolean> {
-        const req: Request = context.switchToHttp().getRequest();
+        const req: ExpressRequest = context.switchToHttp().getRequest();
 
         let token: string;
         const reqHeadTok: string = req.headers.authorization;
@@ -41,5 +42,3 @@ export class AuthJwtGuard implements CanActivate {
         }
     }
 }
-
-

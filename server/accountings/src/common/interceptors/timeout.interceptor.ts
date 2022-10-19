@@ -6,10 +6,10 @@ import {
     RequestTimeoutException
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Observable, throwError, TimeoutError } from 'rxjs';
+import { Observable, TimeoutError } from 'rxjs';
 import { catchError, timeout } from 'rxjs/operators';
 import { ExceptionMessage } from 'src/common/enums/exception-message.enum';
-import { ConfigEnum } from '../enums/config.enum';
+import { PropertyPath } from '../enums/property-path.enum';
 
 @Injectable()
 export class TimeoutInterceptor implements NestInterceptor {
@@ -18,7 +18,7 @@ export class TimeoutInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
         const now = Date.now();
         const REQUEST_TIMEOUT_TIME = this.configService.get(
-            ConfigEnum.REQUEST_TIMEOUT_TIME
+            PropertyPath.REQUEST_TIMEOUT_TIME
         );
 
         return next.handle().pipe(
