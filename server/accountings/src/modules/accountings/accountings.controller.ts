@@ -10,7 +10,7 @@ import {
     Put,
     UseGuards
 } from '@nestjs/common';
-import { UserDecorator } from 'src/common/decorators/user.decorator';
+import { UserDecorator } from 'src/decorators/user.decorator';
 import { AuthJwtGuard } from '../auth/auth-jwt.guard';
 import { User } from '../users/users.schema';
 import { Accounting } from './accountings.schema';

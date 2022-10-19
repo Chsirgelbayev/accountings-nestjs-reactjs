@@ -1,14 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ExceptionMessage } from 'src/common/enums/exception-message.enum';
+import { ExceptionMessage } from 'src/enums/exception-message.enum';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDocument, User } from './users.schema';
 
 @Injectable()
 export class UsersService {
     constructor(
-        @InjectModel(User.name) private readonly usersSchema: Model<UserDocument>
+        @InjectModel(User.name)
+        private readonly usersSchema: Model<UserDocument>
     ) {}
 
     public async getAllUsers(): Promise<User[]> {

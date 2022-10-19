@@ -3,14 +3,14 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { AllErrorsFilter } from './common/filters/all-exception.filter';
+import { AllErrorsFilter } from './filters/all-exception.filter';
 import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import { ConfigService } from '@nestjs/config/dist';
-import { PropertyPath } from './common/enums/property-path.enum';
+import { PropertyPath } from './enums/property-path.enum';
 import { appConfig } from './config/app.config';
-import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
-import { developmet } from './common/constants/app.constant';
+import { TimeoutInterceptor } from './interceptors/timeout.interceptor';
+import { developmet } from './constants/app.constant';
 
 const bootstrap = async (): Promise<void> => {
     const app: INestApplication =
