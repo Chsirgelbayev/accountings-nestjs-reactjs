@@ -10,11 +10,11 @@ import { UpdateAccountingDto } from './dto/update-accounting.dto';
 export class AccountingsService {
     constructor(
         @InjectModel(Accounting.name)
-        private readonly accountingsSchema: Model<IAccounting>
+        private readonly _accountingsSchema: Model<IAccounting>
     ) {}
 
     public async findAll(id: string): Promise<Accounting[]> {
-        const accountings: Accounting[] = await this.accountingsSchema.find({
+        const accountings: Accounting[] = await this._accountingsSchema.find({
             userId: id
         });
 
@@ -28,7 +28,7 @@ export class AccountingsService {
     public async create(
         createAccountingDto: CreateAccountingDto
     ): Promise<Accounting> {
-        return await this.accountingsSchema.create(createAccountingDto);
+        return await this._accountingsSchema.create(createAccountingDto);
     }
 
     public async update(
@@ -36,7 +36,7 @@ export class AccountingsService {
         updateAccountingDto: UpdateAccountingDto
     ): Promise<Accounting> {
         const accounting: Accounting =
-            await this.accountingsSchema.findByIdAndUpdate(
+            await this._accountingsSchema.findByIdAndUpdate(
                 id,
                 updateAccountingDto,
                 {
@@ -54,7 +54,7 @@ export class AccountingsService {
 
     public async delete(id: string) {
         const accounting: Accounting =
-            await this.accountingsSchema.findByIdAndDelete(id);
+            await this._accountingsSchema.findByIdAndDelete(id);
 
         if (!accounting) {
             throw new NotFoundException(ExceptionMessage.ACCOUNTING_NOT_FOUND);

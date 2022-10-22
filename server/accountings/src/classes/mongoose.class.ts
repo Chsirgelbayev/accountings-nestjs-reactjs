@@ -4,14 +4,14 @@ import {
     MongooseModuleOptions,
     MongooseOptionsFactory
 } from '@nestjs/mongoose';
-import { PropertyPath } from 'src/enums/property-path.enum';
+import { PropertyPath } from 'src/enums';
 
 @Injectable()
 export class MongooseConfigOptions implements MongooseOptionsFactory {
-    constructor(private readonly configService: ConfigService) {}
+    constructor(private readonly _configService: ConfigService) {}
 
     createMongooseOptions(): MongooseModuleOptions {
-        const MONGO_URL: string = this.configService.get(
+        const MONGO_URL: string = this._configService.get(
             PropertyPath.MONGO_URL
         );
 

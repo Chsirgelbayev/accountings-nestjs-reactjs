@@ -14,12 +14,12 @@ import { UsersService } from './users.service';
 
 @Controller('api/v1/users')
 export class UsersController {
-    constructor(private readonly usersService: UsersService) {}
+    constructor(private readonly _usersService: UsersService) {}
 
     @UseGuards(AuthJwtGuard)
     @Get()
     public async getAllUsers(): Promise<Object> {
-        const users = await this.usersService.getAllUsers();
+        const users = await this._usersService.getAllUsers();
 
         return {
             success: true,
@@ -30,7 +30,7 @@ export class UsersController {
     @UseGuards(AuthJwtGuard)
     @Get(':id')
     public async getUser(@Param('id') id: string) {
-        const user = await this.usersService.getUser(id);
+        const user = await this._usersService.getUser(id);
 
         return {
             success: true,
@@ -45,7 +45,7 @@ export class UsersController {
         @Body() updateUserDto: UpdateUserDto,
         @Param('id') id: string
     ) {
-        const user = await this.usersService.updateUser(updateUserDto, id);
+        const user = await this._usersService.updateUser(updateUserDto, id);
 
         return {
             success: true,
@@ -57,6 +57,6 @@ export class UsersController {
     @Delete(':id')
     @HttpCode(204)
     public async deleteUser(@Param('id') id: string): Promise<void> {
-        return await this.usersService.deleteUser(id);
+        return await this._usersService.deleteUser(id);
     }
 }

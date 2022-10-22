@@ -1,3 +1,4 @@
+import { ExpressResponse } from '../../interfaces';
 import { User } from '../users/users.schema';
 
 export class LoginResponse {
@@ -10,10 +11,7 @@ export class RegisterResponse {
     readonly token: string;
 }
 
-export class GetMeResponse {
-    readonly success: true;
-    readonly data: User;
-}
+export class GetMeResponse extends ExpressResponse<User> {}
 
 export interface CookieSettings {
     readonly expires: Date;

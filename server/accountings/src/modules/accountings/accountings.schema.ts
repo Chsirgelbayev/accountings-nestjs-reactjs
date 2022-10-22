@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { defaultUserId, refUser } from './accountings.constants';
+import { defaultUserId, refUser } from './accountings.constant';
 
 export type IAccounting = Accounting & Document;
 

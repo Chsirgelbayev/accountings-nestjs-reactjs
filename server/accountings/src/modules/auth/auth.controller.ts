@@ -25,7 +25,7 @@ import { Response } from 'express';
 @ApiTags(AuthSwagger.TAG)
 @Controller('api/v1/auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly _authService: AuthService) {}
 
     @ApiOperation({ summary: AuthSwagger.LOGIN })
     @ApiResponse({
@@ -38,7 +38,7 @@ export class AuthController {
         @Body() loginDto: LoginDto,
         @Res() res: Response
     ): Promise<LoginResponse> {
-        const tokenOptions = await this.authService.login(loginDto);
+        const tokenOptions = await this._authService.login(loginDto);
 
         res.cookie(
             Auth.TOKEN,
@@ -63,7 +63,7 @@ export class AuthController {
         @Body() registerDto: RegisterDto,
         @Res() res: Response
     ): Promise<RegisterResponse> {
-        const tokenOptions = await this.authService.register(registerDto);
+        const tokenOptions = await this._authService.register(registerDto);
 
         res.cookie(
             'token',

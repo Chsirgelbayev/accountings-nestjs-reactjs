@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config/dist';
 import { MongooseModule } from '@nestjs/mongoose';
-import { MongooseConfigOptions } from './classes/mongoose.class';
 import { AccountingsModule } from './modules/accountings/accountings.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { ConfigModule } from '@nestjs/config/dist';
-import { configuration } from './config/configuration';
+import { MongooseConfigOptions } from './classes';
+import { configuration } from './config';
 
 @Module({
     imports: [

@@ -14,10 +14,10 @@ import { production } from 'src/common/constants/app.constant';
 @Injectable()
 export class AuthService {
     constructor(
-        private readonly configService: ConfigService,
+        private readonly _configService: ConfigService,
 
         @InjectModel(User.name) private readonly usersSchema: Model<User>,
-        private readonly jwtService: JwtService
+        private readonly _jwtService: JwtService
     ) {}
 
     public async login(loginDto: LoginDto): Promise<TokenOptions> {
@@ -55,10 +55,10 @@ export class AuthService {
     }
 
     private async generateToken(user): Promise<TokenOptions> {
-        const jwtConfig = this.configService.get(PropertyPath.JWT);
-        const NODE_ENV = this.configService.get(PropertyPath.NODE_ENV);
+        const jwtConfig = this._configService.get(PropertyPath.JWT);
+        const NODE_ENV = this._configService.get(PropertyPath.NODE_ENV);
 
-        const token: string = this.jwtService.sign(user);
+        const token: string = this._jwtService.sign(user);
 
         const cookieSettings: CookieSettings = {
             expires: new Date(

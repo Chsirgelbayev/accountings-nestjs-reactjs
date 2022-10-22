@@ -9,11 +9,11 @@ import { UserDocument, User } from './users.schema';
 export class UsersService {
     constructor(
         @InjectModel(User.name)
-        private readonly usersSchema: Model<UserDocument>
+        private readonly _usersSchema: Model<UserDocument>
     ) {}
 
     public async getAllUsers(): Promise<User[]> {
-        const users: User[] = await this.usersSchema.find();
+        const users: User[] = await this._usersSchema.find();
 
         if (!users.length) {
             throw new NotFoundException(ExceptionMessage.USERS_NOT_FOUND);
@@ -23,7 +23,7 @@ export class UsersService {
     }
 
     public async getUser(id: string): Promise<User> {
-        const user: User = await this.usersSchema.findById(id);
+        const user: User = await this._usersSchema.findById(id);
 
         if (!user) {
             throw new NotFoundException(ExceptionMessage.USER_NOT_FOUND);
@@ -36,7 +36,7 @@ export class UsersService {
         updateUserDto: UpdateUserDto,
         id: string
     ): Promise<User> {
-        const user: User = await this.usersSchema.findByIdAndUpdate(
+        const user: User = await this._usersSchema.findByIdAndUpdate(
             id,
             updateUserDto
         );
@@ -49,7 +49,7 @@ export class UsersService {
     }
 
     public async deleteUser(id: string): Promise<void> {
-        const user = await this.usersSchema.findById(id);
+        const user = await this._usersSchema.findById(id);
 
         if (!user) {
             throw new NotFoundException(ExceptionMessage.USER_NOT_FOUND);

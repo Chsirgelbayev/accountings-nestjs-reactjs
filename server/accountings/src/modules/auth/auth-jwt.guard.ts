@@ -7,12 +7,11 @@ import {
 import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { ExceptionMessage } from 'src/enums/exception-message.enum';
-import { Request } from 'express';
 import { ExpressRequest } from 'src/interfaces/request.interface';
 
 @Injectable()
 export class AuthJwtGuard implements CanActivate {
-    constructor(private readonly jwtService: JwtService) {}
+    constructor(private readonly _jwtService: JwtService) {}
 
     canActivate(
         context: ExecutionContext
@@ -34,7 +33,7 @@ export class AuthJwtGuard implements CanActivate {
         }
 
         try {
-            req.user = this.jwtService.verify(token);
+            req.user = this._jwtService.verify(token);
 
             return true;
         } catch (e) {

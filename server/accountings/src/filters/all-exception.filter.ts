@@ -8,11 +8,10 @@ import {
     BadRequestException,
     NotFoundException
 } from '@nestjs/common';
+import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 import { MongoServerError } from 'mongodb';
 import { Request, Response } from 'express';
-import { ExceptionMessage } from '../enums/exception-message.enum';
-import { HttpArgumentsHost } from '@nestjs/common/interfaces';
-import { ErrorName } from '../enums/error-name.enum';
+import { ErrorName, ExceptionMessage } from '../enums';
 
 @Catch()
 export class AllErrorsFilter implements ExceptionFilter {

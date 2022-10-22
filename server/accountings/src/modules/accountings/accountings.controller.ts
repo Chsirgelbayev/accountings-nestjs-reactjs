@@ -10,7 +10,7 @@ import {
     Put,
     UseGuards
 } from '@nestjs/common';
-import { UserDecorator } from 'src/decorators/user.decorator';
+import { UserDecorator } from 'src/decorators';
 import { AuthJwtGuard } from '../auth/auth-jwt.guard';
 import { User } from '../users/users.schema';
 import { Accounting } from './accountings.schema';
@@ -25,14 +25,14 @@ import { UpdateAccountingDto } from './dto/update-accounting.dto';
 
 @Controller('api/v1/accountings')
 export class AccountingsController {
-    constructor(private readonly accountingsService: AccountingsService) {}
+    constructor(private readonly _accountingsService: AccountingsService) {}
 
     @Get()
     @UseGuards(AuthJwtGuard)
     public async getAllAccountings(
         @UserDecorator() user: User
     ): Promise<GetAllAccountingsResponse> {
-        const accountings: Accounting[] = await this.accountingsService.findAll(
+        const accountings: Accounting[] = await this._accountingsService.findAll(
             user.id
         );
 
@@ -48,7 +48,7 @@ export class AccountingsController {
         @UserDecorator() user: User,
         @Body() createAccountingDto: CreateAccountingDto
     ): Promise<CreateAccountingResponse> {
-        const accounting: Accounting = await this.accountingsService.create({
+        const accounting: Accounting = await this._accountingsService.create({
             ...createAccountingDto,
             userId: user.id
         });
@@ -65,7 +65,7 @@ export class AccountingsController {
         @Param('id') id: string,
         @Body() updateAccountingDto: UpdateAccountingDto
     ): Promise<UpdateAccountingResponse> {
-        const accounting: Accounting = await this.accountingsService.update(
+        const accounting: Accounting = await this._accountingsService.update(
             id,
             updateAccountingDto
         );
@@ -80,6 +80,6 @@ export class AccountingsController {
     @UseGuards(AuthJwtGuard)
     @HttpCode(HttpStatus.NO_CONTENT)
     public async deleteAccounting(@Param('id') id: string): Promise<void> {
-        return await this.accountingsService.delete(id);
+        return await this._accountingsService.delete(id);
     }
 }

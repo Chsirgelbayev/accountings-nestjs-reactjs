@@ -1,35 +1,36 @@
 import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { ConfigService } from '@nestjs/config/dist';
 import { NestFactory } from '@nestjs/core';
+import * as morgan from 'morgan';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { AllErrorsFilter } from './filters/all-exception.filter';
 import * as cookieParser from 'cookie-parser';
-import * as morgan from 'morgan';
-import { ConfigService } from '@nestjs/config/dist';
-import { PropertyPath } from './enums/property-path.enum';
-import { appConfig } from './config/app.config';
-import { TimeoutInterceptor } from './interceptors/timeout.interceptor';
-import { developmet } from './common/constants/app.constant';
+import { PropertyPath } from './enums';
+import { AllErrorsFilter } from './filters';
+import { appConfig } from './config';
+import { TimeoutInterceptor } from './interceptors';
+import { developmet } from './common/constants';
 
 const bootstrap = async (): Promise<void> => {
     const app: INestApplication =
         await NestFactory.create<NestExpressApplication>(AppModule, appConfig);
 
-    const configService = app.get(ConfigService);
+    const _configService = app.get(ConfigService);
 
-    const SWAGGER_CONFIG = configService.get(PropertyPath.SWAGGER);
-    const NODE_ENV = configService.get<string>(PropertyPath.NODE_ENV);
-    const PORT = configService.get<string>(PropertyPath.PORT);
+    const SWAGGER_CONFIG = _configService.get(PropertyPath.SWAGGER);
+    const NODE_ENV = _configService.get<string>(PropertyPath.NODE_ENV);
+    const PORT = _configService.get<string>(PropertyPath.PORT);
 
     if (NODE_ENV === developmet) {
         app.use(morgan('dev'));
     }
 
-    app.use(cookieParser())
+    app
+        .use(cookieParser())
         .useGlobalPipes(new ValidationPipe())
         .useGlobalFilters(new AllErrorsFilter())
-        .useGlobalInterceptors(new TimeoutInterceptor(configService));
+        .useGlobalInterceptors(new TimeoutInterceptor(_configService));
 
     const swaggerCfg = new DocumentBuilder()
         .setTitle(SWAGGER_CONFIG.TITLE)
