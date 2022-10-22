@@ -18,7 +18,7 @@ import { AuthJwtGuard } from './auth-jwt.guard';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
-import { UserDecorator } from 'src/decorators/user.decorator';
+import { UserDecorator } from '../../decorators';
 import { User } from '../users/users.schema';
 import { Response } from 'express';
 

@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
-import { ExceptionMessage } from 'src/enums/exception-message.enum';
-import { ExpressRequest } from 'src/interfaces/request.interface';
+import { ExceptionMessage } from '../../enums';
+import { ExpressRequest } from '../../interfaces';
 
 @Injectable()
 export class AuthJwtGuard implements CanActivate {

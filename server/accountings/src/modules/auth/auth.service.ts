@@ -1,15 +1,14 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
-import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../users/users.schema';
-import { ExceptionMessage } from 'src/enums/exception-message.enum';
 import { ConfigService } from '@nestjs/config/dist';
-import { PropertyPath } from 'src/enums/property-path.enum';
+import { PropertyPath, ExceptionMessage } from '../../enums';
 import { CookieSettings, TokenOptions } from './auth.interface';
-import { production } from 'src/common/constants/app.constant';
+import { production } from '../../common/constants';
 
 @Injectable()
 export class AuthService {
