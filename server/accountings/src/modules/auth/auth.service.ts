@@ -9,7 +9,7 @@ import { ExceptionMessage } from 'src/enums/exception-message.enum';
 import { ConfigService } from '@nestjs/config/dist';
 import { PropertyPath } from 'src/enums/property-path.enum';
 import { CookieSettings, TokenOptions } from './auth.interface';
-import { production } from 'src/constants/app.constant';
+import { production } from 'src/common/constants/app.constant';
 
 @Injectable()
 export class AuthService {

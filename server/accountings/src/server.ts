@@ -10,7 +10,7 @@ import { ConfigService } from '@nestjs/config/dist';
 import { PropertyPath } from './enums/property-path.enum';
 import { appConfig } from './config/app.config';
 import { TimeoutInterceptor } from './interceptors/timeout.interceptor';
-import { developmet } from './constants/app.constant';
+import { developmet } from './common/constants/app.constant';
 
 const bootstrap = async (): Promise<void> => {
     const app: INestApplication =
