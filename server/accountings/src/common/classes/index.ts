@@ -1,1 +1,1 @@
-export * from './mongoose.class'
+export * from '../../database/mongoose.options';

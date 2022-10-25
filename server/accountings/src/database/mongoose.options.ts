@@ -7,7 +7,7 @@ import {
 import { PropertyPath } from 'src/common/enums';
 
 @Injectable()
-export class MongooseConfigOptions implements MongooseOptionsFactory {
+export class MongooseOptions implements MongooseOptionsFactory {
     constructor(private readonly _configService: ConfigService) {}
 
     createMongooseOptions(): MongooseModuleOptions {
