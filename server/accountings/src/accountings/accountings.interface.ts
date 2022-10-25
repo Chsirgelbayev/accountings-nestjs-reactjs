@@ -1,4 +1,4 @@
-import { ExpressResponse } from 'src/interfaces';
+import { ExpressResponse } from 'src/common/interfaces';
 import { Accounting } from './accountings.schema';
 
 export class GetAllAccountingsResponse extends ExpressResponse<Accounting[]> {}

@@ -14,13 +14,14 @@ import {
     GetMeResponse
 } from './auth.interface';
 import { Auth, AuthSwagger } from './auth.enum';
-import { AuthJwtGuard } from './auth-jwt.guard';
+import { AuthJwtGuard } from './guards/auth-jwt.guard';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
-import { UserDecorator } from '../../decorators';
 import { User } from '../users/users.schema';
 import { Response } from 'express';
+import { UserDecorator } from 'src/users/decorators/user.decorator';
+
 
 @ApiTags(AuthSwagger.TAG)
 @Controller('api/v1/auth')

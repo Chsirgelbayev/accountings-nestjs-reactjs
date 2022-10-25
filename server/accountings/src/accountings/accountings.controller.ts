@@ -10,8 +10,8 @@ import {
     Put,
     UseGuards
 } from '@nestjs/common';
-import { UserDecorator } from 'src/decorators';
-import { AuthJwtGuard } from '../auth/auth-jwt.guard';
+import { UserDecorator } from 'src/users/decorators/user.decorator';
+import { AuthJwtGuard } from '../auth/guards/auth-jwt.guard';
 import { User } from '../users/users.schema';
 import { Accounting } from './accountings.schema';
 import { AccountingsService } from './accountings.service';
@@ -32,9 +32,8 @@ export class AccountingsController {
     public async getAllAccountings(
         @UserDecorator() user: User
     ): Promise<GetAllAccountingsResponse> {
-        const accountings: Accounting[] = await this._accountingsService.findAll(
-            user.id
-        );
+        const accountings: Accounting[] =
+            await this._accountingsService.findAll(user.id);
 
         return {
             success: true,

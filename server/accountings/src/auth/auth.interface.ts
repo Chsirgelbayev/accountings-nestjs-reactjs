@@ -1,4 +1,4 @@
-import { ExpressResponse } from '../../interfaces';
+import { ExpressResponse } from 'src/common/interfaces';
 import { User } from '../users/users.schema';
 
 export class LoginResponse {

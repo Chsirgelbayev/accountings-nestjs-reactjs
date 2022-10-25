@@ -6,21 +6,21 @@ import { RegisterDto } from './dto/register.dto';
 import { Model } from 'mongoose';
 import { User } from '../users/users.schema';
 import { ConfigService } from '@nestjs/config/dist';
-import { PropertyPath, ExceptionMessage } from '../../enums';
+import { PropertyPath, ExceptionMessage } from '../common/enums';
 import { CookieSettings, TokenOptions } from './auth.interface';
-import { production } from '../../common/constants';
+import { production } from 'src/common/constants';
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly _configService: ConfigService,
 
-        @InjectModel(User.name) private readonly usersSchema: Model<User>,
+        @InjectModel(User.name) private readonly _usersSchema: Model<User>,
         private readonly _jwtService: JwtService
     ) {}
 
     public async login(loginDto: LoginDto): Promise<TokenOptions> {
-        const user: User = await this.usersSchema
+        const user: User = await this._usersSchema
             .findOne({
                 login: loginDto.login
             })
@@ -45,7 +45,7 @@ export class AuthService {
     }
 
     public async register(registerDto: RegisterDto): Promise<TokenOptions> {
-        const user = await this.usersSchema.create(registerDto);
+        const user = await this._usersSchema.create(registerDto);
 
         return this.generateToken({
             login: user.login,

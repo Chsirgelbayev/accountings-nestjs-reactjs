@@ -6,10 +6,10 @@ import * as morgan from 'morgan';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
-import { PropertyPath } from './enums';
-import { AllErrorsFilter } from './filters';
+import { PropertyPath } from './common/enums';
+import { AllErrorsFilter } from './common/filters';
 import { appConfig } from './config';
-import { TimeoutInterceptor } from './interceptors';
+import { TimeoutInterceptor } from './common/interceptors';
 import { developmet } from './common/constants';
 
 const bootstrap = async (): Promise<void> => {
@@ -26,8 +26,7 @@ const bootstrap = async (): Promise<void> => {
         app.use(morgan('dev'));
     }
 
-    app
-        .use(cookieParser())
+    app.use(cookieParser())
         .useGlobalPipes(new ValidationPipe())
         .useGlobalFilters(new AllErrorsFilter())
         .useGlobalInterceptors(new TimeoutInterceptor(_configService));
@@ -48,4 +47,4 @@ const bootstrap = async (): Promise<void> => {
     });
 };
 
-bootstrap();
+void bootstrap();
