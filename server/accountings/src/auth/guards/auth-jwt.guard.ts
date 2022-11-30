@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
-import { ExceptionMessage } from '../../common/enums';
+import { ExceptionMessage } from '../../common/constants';
 import { ExpressRequest } from '../../common/interfaces';
 
 @Injectable()

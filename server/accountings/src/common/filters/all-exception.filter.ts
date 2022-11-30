@@ -11,7 +11,7 @@ import {
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 import { MongoServerError } from 'mongodb';
 import { Request, Response } from 'express';
-import { ErrorName, ExceptionMessage } from '../enums';
+import { ErrorName, ExceptionMessage } from '../constants';
 
 @Catch()
 export class AllErrorsFilter implements ExceptionFilter {

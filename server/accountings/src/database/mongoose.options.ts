@@ -4,7 +4,7 @@ import {
     MongooseModuleOptions,
     MongooseOptionsFactory
 } from '@nestjs/mongoose';
-import { PropertyPath } from 'src/common/enums';
+import { PropertyPath } from 'src/common/constants';
 
 @Injectable()
 export class MongooseOptions implements MongooseOptionsFactory {

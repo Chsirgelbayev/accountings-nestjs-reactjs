@@ -10,7 +10,7 @@ import {
     Put,
     UseGuards
 } from '@nestjs/common';
-import { UserDecorator } from 'src/users/decorators/user.decorator';
+import { UserDecorator } from '../users/user.decorator';
 import { AuthJwtGuard } from '../auth/guards/auth-jwt.guard';
 import { User } from '../users/users.schema';
 import { Accounting } from './accountings.schema';
@@ -20,8 +20,8 @@ import {
     GetAllAccountingsResponse,
     UpdateAccountingResponse
 } from './accountings.interface';
-import { CreateAccountingDto } from './dto/create-accounting.dto';
-import { UpdateAccountingDto } from './dto/update-accounting.dto';
+import { CreateAccountingDto } from './dtos/create-accounting.dto';
+import { UpdateAccountingDto } from './dtos/update-accounting.dto';
 
 @Controller('api/v1/accountings')
 export class AccountingsController {

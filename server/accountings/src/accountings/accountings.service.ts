@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ExceptionMessage } from 'src/common/enums/exception-message.enum';
+import { ExceptionMessage } from '../common/constants/exception-message.enum';
 import { Accounting, IAccounting } from './accountings.schema';
-import { CreateAccountingDto } from './dto/create-accounting.dto';
-import { UpdateAccountingDto } from './dto/update-accounting.dto';
+import { CreateAccountingDto } from './dtos/create-accounting.dto';
+import { UpdateAccountingDto } from './dtos/update-accounting.dto';
 
 @Injectable()
 export class AccountingsService {

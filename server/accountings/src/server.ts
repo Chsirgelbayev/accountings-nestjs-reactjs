@@ -6,11 +6,11 @@ import * as morgan from 'morgan';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
-import { PropertyPath } from './common/enums';
+import { PropertyPath } from './common/constants';
 import { AllErrorsFilter } from './common/filters';
 import { appConfig } from './config';
 import { TimeoutInterceptor } from './common/interceptors';
-import { developmet } from './common/constants';
+import { developmet } from './common/constants/app.constants';
 
 const bootstrap = async (): Promise<void> => {
     const app: INestApplication =

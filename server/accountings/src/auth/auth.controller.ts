@@ -16,11 +16,11 @@ import {
 import { Auth, AuthSwagger } from './auth.enum';
 import { AuthJwtGuard } from './guards/auth-jwt.guard';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/login.dto';
-import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dtos/login.dto';
+import { RegisterDto } from './dtos/register.dto';
 import { User } from '../users/users.schema';
 import { Response } from 'express';
-import { UserDecorator } from 'src/users/decorators/user.decorator';
+import { UserDecorator } from '../users/user.decorator';
 
 
 @ApiTags(AuthSwagger.TAG)
